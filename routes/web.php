@@ -33,3 +33,7 @@ Route::get('/sendbasicemail','MailController@basic_email');
 Route::get('/mail', function () {
     return view('mail');
 });
+
+
+//Route untuk admin
+Route::get('/admin/home', 'AdminController@index');
