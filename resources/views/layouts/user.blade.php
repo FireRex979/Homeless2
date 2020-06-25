@@ -15,6 +15,7 @@
         <link type="text/css" rel="stylesheet" href="{{asset('assets/user/css/color.css')}}">
         <!--=============== favicons ===============-->
         <link rel="shortcut icon" href="assets/user/images/favicon.ico">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </head>
     <body>
         <!--loader-->
@@ -29,7 +30,7 @@
             <header class="main-header dark-header fs-header sticky">
                 <div class="header-inner">
                     <div class="logo-holder">
-                        <a href="index.html"><img src="assets/user/images/logo.png" alt=""></a>
+                        <a href="/home"><img src="assets/user/images/logo.png" alt=""></a>
                     </div>
                     <!-- <div class="header-search vis-header-search">
                         <div class="header-search-input-item">
@@ -47,7 +48,17 @@
                         </div>
                         <button class="header-search-button" onclick="window.location.href='listing.html'">Search</button>
                     </div> -->
-                    <div class="show-reg-form modal-open"><i class="fa fa-sign-in"></i>Sign In</div>
+                    <!-- <div class="show-reg-form modal-open"><i class="fa fa-sign-in"></i>Sign In</div> -->
+                    <div class="header-user-menu">
+                        <div class="header-user-name">
+                            <span><img src="assets/user/images/avatar/1.jpg" alt=""></span>
+                            Hello , Alisa
+                        </div>
+                        <ul>
+                            <li><a href="/profile"> Profile</a></li>
+                            <li><a href="#">Log Out</a></li>
+                        </ul>
+                    </div>
                     <!-- nav-button-wrap-->
                     <div class="nav-button-wrap color-bg">
                         <div class="nav-button">
@@ -60,10 +71,16 @@
                         <nav>
                             <ul>
                                 <li>
-                                    <a href="#" class="act-link">Beranda</a>
+                                    <a href="/home" class="act-link" id="beranda">Beranda</a>
                                 </li>
                                 <li>
-                                    <a href="blog.html">Berita</a>
+                                    <a href="/residence" id="perumahan">Perumahan</a>
+                                </li>
+                                <li>
+                                    <a href="/news" id="news">Berita</a>
+                                </li>
+                                <li>
+                                    <a href="blog.html" id="kpr">KPR</a>
                                 </li>
                             </ul>
                         </nav>

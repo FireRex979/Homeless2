@@ -1,6 +1,15 @@
 @extends('layouts.user')
-@section('judul','User | Search Page')
+@section('judul','User | Perumahan Page')
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#beranda').removeClass('act-link');
+        $('#news').removeClass('act-link');
+        $('#kpr').removeClass('act-link');
+        $('#perumahan').addClass('act-link');
+    });
+</script>
             <!-- wrapper -->	
             <div id="wrapper">
                 <!--  content  --> 
@@ -89,7 +98,7 @@
                                                 <div class="overlay"></div>
                                             </div>
                                             <div class="geodir-category-content fl-wrap">
-                                                <a class="listing-geodir-category" href="/residence">Lihat</a>
+                                                <a class="listing-geodir-category" href="/residence-detail">Lihat</a>
                                                 <h3><a href="/residence">Perumahan {{$i}}</a></h3>
                                                 <p>Kelebihan 1.</p>
                                                 <div class="geodir-category-options fl-wrap">
@@ -106,33 +115,14 @@
                                     <!-- pagination-->
                                     <div class="pagination">
                                         <a href="#" class="prevposts-link"><i class="fa fa-caret-left"></i></a>
-                                        <a href="#" class="blog-page transition">1</a>
-                                        <a href="#" class="blog-page current-page transition">2</a>
+                                        <a href="#" class="blog-page current-page transition">1</a>
+                                        <a href="#" class="blog-page transition">2</a>
                                         <a href="#" class="blog-page transition">3</a>
                                         <a href="#" class="blog-page transition">4</a>
                                         <a href="#" class="nextposts-link"><i class="fa fa-caret-right"></i></a>
                                     </div>
                                 </div>
                                 <!-- list-main-wrap end-->                           
-                            </div>
-                        </div>
-                    </section>
-                    <!--  section  end--> 
-                    <div class="limit-box fl-wrap"></div>
-                    <!--  section  --> 
-                    <section class="gradient-bg">
-                        <div class="cirle-bg">
-                            <div class="bg" data-bg="images/bg/circle.png"></div>
-                        </div>
-                        <div class="container">
-                            <div class="join-wrap fl-wrap">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h3>Join our online community</h3>
-                                        <p>Grow your marketing and be happy with your online business</p>
-                                    </div>
-                                    <div class="col-md-4"><a href="#" class="join-wrap-btn modal-open">Sign Up <i class="fa fa-sign-in"></i></a></div>
-                                </div>
                             </div>
                         </div>
                     </section>

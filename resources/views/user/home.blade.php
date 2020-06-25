@@ -160,7 +160,7 @@
                                                 <div class="overlay"></div>
                                             </div>
                                             <div class="geodir-category-content fl-wrap">
-                                                <a class="listing-geodir-category" href="/residence">Lihat</a>
+                                                <a class="listing-geodir-category" href="/residence-detail">Lihat</a>
                                                 <h3><a href="listing-single.html">Perumahan {{$i}}</a></h3>
                                                 <p>Kelebihan Perumahan 1.  </p>
                                                 <p>Kelebihan Perumahan 2.  </p>
@@ -194,17 +194,16 @@
                                 <div class="col-md-4">
                                     <article class="card-post">
                                         <div class="card-post-img fl-wrap">
-                                            <a href="blog-single.html"><img src="assets/user/images/all/1.jpg"   alt=""></a>
+                                            <a href="/news-detail"><img src="assets/user/images/all/1.jpg"   alt=""></a>
                                         </div>
                                         <div class="card-post-content fl-wrap">
-                                            <h3><a href="blog-single.html">Berita {{$i}}</a></h3>
+                                            <h3><a href="/news-detail">Berita {{$i}}</a></h3>
                                             <p>In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo gravida. </p>
-                                            <div class="post-author"><a href="#"><img src="images/avatar/1.jpg" alt=""><span>By , Alisa Noory</span></a></div>
+                                            <div class="post-author"><span>By , Alisa Noory</span></div>
                                             <div class="post-opt">
                                                 <ul>
                                                     <li><i class="fa fa-calendar-check-o"></i> <span>25 April 2018</span></li>
-                                                    <li><i class="fa fa-eye"></i> <span>264</span></li>
-                                                    <li><i class="fa fa-tags"></i> <a href="#">Photography</a>  </li>
+                                                    <li><i class="fa fa-tags"></i> <a href="#">Kategori Berita</a>  </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -212,7 +211,7 @@
                                 </div>
                                 @endfor
                             </div>
-                            <a href="blog.html" class="btn  big-btn circle-btn  dec-btn color-bg flat-btn">Read All<i class="fa fa-eye"></i></a>
+                            <a href="/news" class="btn  big-btn circle-btn  dec-btn color-bg flat-btn">Baca Semua<i class="fa fa-eye"></i></a>
                         </div>
                     </section>
                     <!--section -->
@@ -367,27 +366,6 @@
                                 </ul>
                                 <div class="sp-cont sp-cont-prev"><i class="fa fa-angle-left"></i></div>
                                 <div class="sp-cont sp-cont-next"><i class="fa fa-angle-right"></i></div>
-                            </div>
-                        </div>
-                    </section>
-                    <!-- section end -->
-                    <!--section -->
-                    
-                    <!-- section end -->
-                    <!--section -->
-                    <section class="gradient-bg">
-                        <div class="cirle-bg">
-                            <div class="bg" data-bg="assets/user/images/bg/circle.png"></div>
-                        </div>
-                        <div class="container">
-                            <div class="join-wrap fl-wrap">
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <h3>Do You Have Questions ?</h3>
-                                        <p>Lorem ipsum dolor sit amet, harum dolor nec in, usu molestiae at no.</p>
-                                    </div>
-                                    <div class="col-md-4"><a href="contacts.html" class="join-wrap-btn">Get In Touch <i class="fa fa-envelope-o"></i></a></div>
-                                </div>
                             </div>
                         </div>
                     </section>

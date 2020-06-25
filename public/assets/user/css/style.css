@@ -4141,7 +4141,6 @@ article .list-single-main-item {
 }
 .dashboard-list-box {
 	border:1px solid #eee;
-	border-radius:10px;
 }
 .dashboard-header {
 	padding:20px 30px;
@@ -4153,6 +4152,17 @@ article .list-single-main-item {
 	font-weight:600;
 	text-align:left;
 }
+.input-message {
+	padding:20px 30px;
+	border-bottom:1px solid #eee;
+	background:#FFF;
+}
+.input-message h3 {
+	font-size:16px;
+	font-weight:600;
+	text-align:left;
+}
+
 .dashboard-list {
 	float:left;
 	padding:25px 30px;
@@ -4177,7 +4187,17 @@ article .list-single-main-item {
 .dashboard-message-text .btn {
 	margin-top:10px;
 	float:left;
-	background: #5ECFB1 !important;
+	border: none;
+	background: #3EAAFD !important;
+	padding:12px 20px;
+	font-weight:500;
+	font-size:12px;
+}
+.dashboard-message-text-user .btn {
+	margin-top:10px;
+	float:right;
+	border: none;
+	background: #3EAAFD !important;
 	padding:12px 20px;
 	font-weight:500;
 	font-size:12px;
@@ -4365,7 +4385,7 @@ article .list-single-main-item {
 	background:#2F3B59;
 }
 .btn i {
-	padding-left:10px;
+	padding-left:2px;
 }
 .btn.big-btn {
 	padding:15px 40px;

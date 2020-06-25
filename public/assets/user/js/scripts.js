@@ -890,6 +890,9 @@ $(".notification-close").on("click", function () {
 	$(this).parent(".notification").slideUp(500);
 });
 
+$("#btn-send").on("click", function () {
+    alert('lol');
+});
 
 var chatwidwrap = $(".chat-widget_wrap"),
     cahtwidbutton = $(".chat-widget-button");
@@ -914,3 +917,25 @@ $(function () {
     initCitybook();
     initparallax();
 });
+
+function addInputComment(id){
+    var input = 'input-text-' + id;
+    var btn = 'btn-reply-' + id;
+    var btn_remove = 'btn-reply-comment-' + id;
+    var string = '<div class="custom-form">'+
+                    '<textarea cols="40" rows="3" placeholder="Ketikan Komentar"></textarea>'+
+                 '</div>';
+    var btn_string  = '<button type="button" onclick="sendButtonRemove('+"'"+id+"'"+')" class="btn color-bg flat-btn" style="border: none;">Kirim</button>';
+    $('#'+input).append(string);
+    $('#'+btn).append(btn_string);
+    $('#'+btn_remove).prop('onclick', null).off('click');
+}
+
+function sendButtonRemove(id){
+    var id_btn = 'input-text-'+id;
+    var id_input = 'btn-reply-'+id;
+    var id_onclick = 'btn-reply-comment-' + id;
+    $('#'+id_btn).empty();
+    $('#'+id_input).empty();
+    $('#'+id_onclick).attr('onClick', 'addInputComment('+"'"+id+"'"+')');
+}

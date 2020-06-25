@@ -1,6 +1,15 @@
 @extends('layouts.user')
 @section('judul','User | Detail Perumahan')
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#beranda').removeClass('act-link');
+        $('#news').removeClass('act-link');
+        $('#kpr').removeClass('act-link');
+        $('#perumahan').addClass('act-link');
+    });
+</script>
 <!-- wrapper -->	
             <div id="wrapper">
                 <!--  content--> 
@@ -167,7 +176,7 @@
                                                     <div class="list-author-widget-text">
                                                         <div class="list-author-widget-contacts">
                                                             <ul>
-                                                                <li><span><i class="fa fa-phone"></i> Telepon :</span> <a href="#">+6287752122xxx</a></li>
+                                                                <li><span><i class="fa fa-user"></i> Nama :</span> <a href="#">GoverBay</a></li>
                                                                 <li><span><i class="fa fa-envelope-o"></i> Email :</span> <a href="#">admin@email.com</a></li>
                                                             </ul>
                                                         </div>
