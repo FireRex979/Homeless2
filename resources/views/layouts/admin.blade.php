@@ -286,6 +286,10 @@
                                 <span class="hide-menu">Dashboard </span>
                             </a>
                         </li>
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Perumahan</span>
+                        </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="app-calendar.html" aria-expanded="false"><i class="mdi mdi-calendar"></i><span
                                     class="hide-menu">Tipe Perumahan</span></a></li>
@@ -297,6 +301,16 @@
                                     class="hide-menu">Fasilitas</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="app-invoice.html" aria-expanded="false"><i class="mdi mdi-book"></i><span
+                                    class="hide-menu">Kelebihan</span></a></li>
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Artikel</span>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="app-calendar.html" aria-expanded="false"><i class="mdi mdi-calendar"></i><span
+                                    class="hide-menu">Kategori Artikel</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="app-chats.html" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
                                     class="hide-menu">Artikel</span></a></li>
                     </ul>
                 </nav>
