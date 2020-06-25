@@ -37,3 +37,6 @@ Route::get('/mail', function () {
 
 //Route untuk admin
 Route::get('/admin/home', 'AdminController@index');
+Route::resource('/admin/fasilitas', 'FasilitasController');
+Route::resource('/admin/kategori-artikel', 'KategoriArtikelController');
+Route::resource('/admin/kelebihan', 'KelebihanController');

@@ -17,7 +17,7 @@
     <link href="{{asset('/assets/admin/src/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css')}}" rel="stylesheet">
     <link href="{{asset('/assets/admin/src/assets/libs/c3/c3.min.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="{{asset('/assets/admin//dist/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{asset('/assets/admin/dist/css/style.min.css')}}" rel="stylesheet">
     @stack('script')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,12 +31,12 @@
     <!-- ============================================================== -->
     <!-- Preloader - style you can find in spinners.css -->
     <!-- ============================================================== -->
-    {{-- <div class="preloader">
+    <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
             <div class="lds-pos"></div>
         </div>
-    </div> --}}
+    </div>
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -297,17 +297,17 @@
                                 href="app-chats.html" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
                                     class="hide-menu">Perumahan</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="app-contacts.html" aria-expanded="false"><i class="mdi mdi-account-box"></i><span
+                                href="{{route('fasilitas.index')}}" aria-expanded="false"><i class="mdi mdi-account-box"></i><span
                                     class="hide-menu">Fasilitas</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="app-invoice.html" aria-expanded="false"><i class="mdi mdi-book"></i><span
+                                href="{{route('kelebihan.index')}}" aria-expanded="false"><i class="mdi mdi-book"></i><span
                                     class="hide-menu">Kelebihan</span></a></li>
                         <li class="nav-small-cap">
                             <i class="mdi mdi-dots-horizontal"></i>
                             <span class="hide-menu">Artikel</span>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="app-calendar.html" aria-expanded="false"><i class="mdi mdi-calendar"></i><span
+                                href="{{route('kategori-artikel.index')}}" aria-expanded="false"><i class="mdi mdi-calendar"></i><span
                                     class="hide-menu">Kategori Artikel</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="app-chats.html" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
@@ -356,6 +356,8 @@
             <footer class="footer">
                 © 2020 Material Pro Admin by wrappixel.com
             </footer>
+            
+            @yield('modal')
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
@@ -400,6 +402,8 @@
     <script src="{{asset('/assets/admin/src/assets/libs/c3/c3.min.js')}}"></script>
     <!-- Chart JS -->
     <script src="{{asset('/assets/admin/dist/js/pages/dashboards/dashboard1.js')}}"></script>
+
+    @stack('script_bawah')
 </body>
 
 </html>
