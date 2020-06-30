@@ -116,4 +116,11 @@ class TipePerumahanController extends Controller
         return response()->json(['success' => 'Gambar berhasil dihapus']);
     }
 
+    public function destroy(Request $request, $tipe){
+        $type = Tipe::find($tipe);
+        $tipe = $type->tipe_name;
+        $type->delete();
+        return response()->json(['success'=>'berhasil', 'tipe' => $tipe]);
+    }
+
 }

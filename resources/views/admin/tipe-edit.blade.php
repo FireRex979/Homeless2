@@ -343,7 +343,7 @@
                     
                         var status = validasi();
                         if(status){
-                            if(qty <= 1){
+                            if(qty < 1 || (qty >= 1 && data.id == {{$type->id}})){
                                 jQuery.ajax({
                                     url: "/admin/tipe/{{$type->id}}",
                                     method: 'put',

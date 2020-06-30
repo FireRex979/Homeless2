@@ -137,38 +137,23 @@
 @endpush
 
 <script>
-    function hapus(id_fasilitas, numRow){
+    function hapus(id_tipe, numRow){
         var konfirmasi = confirm("Apakah anda yakin menghapus fasilitas?");
         if(konfirmasi == true){
             jQuery.ajax({
-                    url: "/admin/tipe/"+id_fasilitas,
+                    url: "/admin/tipe/"+id_tipe,
                     method: 'delete',
                     data: {
                         _token: $('#signup-token').val(),
                     },
                     success: function(result){
-                        $("#pesan").text("Kelebihan "+result.artikel+" telah berhasil dihapus");
+                        $("#pesan").text("Kelebihan "+result.tipe+" telah berhasil dihapus");
                         $("#status-hapus").show();
                         $("#zero_config").find('tbody tr:eq('+String(numRow-1)+')').hide();
                     }
             });
         }
     }
-
-    function showEdit(id_fasilitas){
-        jQuery.ajax({
-                url: "/admin/tipe/"+id_fasilitas+"/edit",
-                method: 'get',
-                success: function(result){
-                    // $('.ganti').html(result.hasil);
-                    // $('#editFasilitas').modal('show');
-                    $("#namaKelebihan").val(result.kelebihan['kelebihan']);
-                    $("#namaSatuan").val(result.kelebihan['satuan']);
-                    $("#formEdit").attr("action", "/admin/tipe/"+id_fasilitas);
-                }
-        });
-    }
-
     
 
     $(document).ready(function(e){
