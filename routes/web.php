@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Hash;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,4 +53,18 @@ Route::get('/sendbasicemail','MailController@basic_email');
 
 Route::get('/mail', function () {
     return view('mail');
+});
+
+Route::post('/register-user', 'UserController@register');
+Auth::routes(['verify'=> true]);
+
+Route::get('/verify/{id}/{time}/{token}', 'UserController@verify');
+Route::get('/verify/resend/{id}', 'UserController@resendEmailVerify');
+Route::post('/login/user', 'UserController@login');
+Route::get('/logout/user', 'UserController@logout');
+Route::get('/user/{id}', 'UserController@profile');
+Route::post('/edit-profile/user/{id}', 'UserController@editProfile');
+Route::post('/change/image/profile/{id}', 'UserController@imageProfile');
+Route::get('/test', function(){
+    return view('user.test');
 });

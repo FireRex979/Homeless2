@@ -27,12 +27,12 @@ class MailtoAdmin extends Mailable
      */
     public function build()
     {   
-        return $this->from('aldi@gmail.com', 'Aldi')
-                    ->subject($this->data->subject)
+        return $this->from('homeless@gmail.com', 'Admin')
+                    ->subject("Verification Email")
                     ->markdown('mail')
                     ->with([
-                        'message' => $this->data->message,
-                        'sender' => 'User',
+                        'name' => $this->data->name,
+                        'id' => $this->data->id,
                     ]);
     }
 }

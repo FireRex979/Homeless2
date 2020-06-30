@@ -17,9 +17,6 @@ class CreateChatsTable extends Migration
             $table->id();
             $table->foreignId('sender_id')->constrained('users');
             $table->foreignId('receiver_id')->constrained('users');
-            $table->text('message');
-            $table->datetime('time_sent');
-            $table->date('read_at');
             $table->timestamps();
         });
         Schema::table('chats', function(Blueprint $table){

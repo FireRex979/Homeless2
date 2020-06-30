@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="robots" content="index, follow"/>
         <meta name="keywords" content=""/>
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <meta name="description" content=""/>
         <!--=============== css  ===============-->
         <link type="text/css" rel="stylesheet" href="{{asset('assets/user/css/reset.css')}}">
@@ -32,39 +33,42 @@
                     <div class="logo-holder">
                         <a href="/home"><img src="assets/user/images/logo.png" alt=""></a>
                     </div>
-                    <!-- <div class="header-search vis-header-search">
-                        <div class="header-search-input-item">
-                            <input type="text" placeholder="Keywords" value=""/>
-                        </div>
-                        <div class="header-search-select-item">
-                            <select data-placeholder="All Categories" class="chosen-select" >
-                                <option>All Categories</option>
-                                <option>Shops</option>
-                                <option>Hotels</option>
-                                <option>Restaurants</option>
-                                <option>Fitness</option>
-                                <option>Events</option>
-                            </select>
-                        </div>
-                        <button class="header-search-button" onclick="window.location.href='listing.html'">Search</button>
-                    </div> -->
-                    <!-- <div class="show-reg-form modal-open"><i class="fa fa-sign-in"></i>Sign In</div> -->
+                    @if(Auth::check())
                     <div class="header-user-menu">
                         <div class="header-user-name">
-                            <span><img src="assets/user/images/avatar/1.jpg" alt=""></span>
-                            Hello , Alisa
+                            <span><img src="/images/user/{{Auth::user()->profile_image}}" alt=""></span>
+                            {{Auth::user()->name}}
                         </div>
                         <ul>
-                            <li><a href="/profile"> Profile</a></li>
-                            <li><a href="#">Log Out</a></li>
+                            <li><a href="/user/{{Auth::user()->id}}"> Profile</a></li>
+                            <li><a href="javascript:void(0)" id="btn-logout">Log Out</a></li>
                         </ul>
                     </div>
+                    @else
+                    <div id="auth-header">
+                        <div class="show-reg-form modal-open" id="sign-form"><i class="fa fa-sign-in"></i>Sign In</div>
+                        <div class="header-user-menu" style="display: none;" id="profile-header">
+                        <div class="header-user-name">
+                                <span><img id="image-user" alt=""></span>
+                                <div id="user-name"></div>
+                            </div>
+                            <ul>
+                                <li><a href="" id="profile-user"> Profile</a></li>
+                                <li><a href="javascript:void(0)" id="btn-logout">Log Out</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    @endif
                     <!-- nav-button-wrap-->
                     <div class="nav-button-wrap color-bg">
                         <div class="nav-button">
                             <span></span><span></span><span></span>
                         </div>
                     </div>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                     <!-- nav-button-wrap end-->
                     <!--  navigation -->
                     <div class="nav-holder main-menu">
@@ -218,37 +222,41 @@
                             <div class="tab">
                                 <div id="tab-1" class="tab-content">
                                     <div class="custom-form">
-                                        <form method="post"  name="registerform">
-                                            <label>Username or Email Address * </label>
-                                            <input name="email" type="text"   onClick="this.select()" value="">
+                                        <!-- <form method="POST"  name="" action="{{ route('login') }}">
+                                            @csrf -->
+                                            <label>Email Address * </label>
+                                            <input name="email_login" type="email"   onClick="this.select()" value="" required="">
                                             <label >Password * </label>
-                                            <input name="password" type="password"   onClick="this.select()" value="" >
-                                            <button type="submit"  class="log-submit-btn"><span>Log In</span></button>
+                                            <input name="password_login" type="password"   onClick="this.select()" value="" required="">
+                                            <button type="submit" id="btn-login" class="log-submit-btn"><span>Log In</span></button>
                                             <div class="clearfix"></div>
                                             <div class="filter-tags">
                                                 <input id="check-a" type="checkbox" name="check">
                                                 <label for="check-a">Remember me</label>
                                             </div>
-                                        </form>
+                                        <!-- </form> -->
                                         <div class="lost_password">
-                                            <a href="#">Lost Your Password?</a>
+                                            <a href="#">Lupa Password?</a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tab">
                                     <div id="tab-2" class="tab-content">
-                                        <div class="custom-form">
-                                            <form method="post"   name="registerform" class="main-register-form" id="main-register-form2">
-                                                <label >First Name * </label>
-                                                <input name="name" type="text"   onClick="this.select()" value="">
-                                                <label>Second Name *</label>
-                                                <input name="name2" type="text"  onClick="this.select()" value="">
-                                                <label>Email Address *</label>
-                                                <input name="email" type="text"  onClick="this.select()" value="">
-                                                <label >Password *</label>
-                                                <input name="password" type="password"   onClick="this.select()" value="" >
-                                                <button type="submit"     class="log-submit-btn"  ><span>Register</span></button>
-                                            </form>
+                                        <div id="tab2-line-1">
+                                            <div class="custom-form">
+                                                <label id="name-regis-label">Nama * <span style="color: red; font-style: bold" id="eror-name-span"></span></label>
+                                                <input name="name" type="text" value="" required="">
+                                                <input name="role" type="hidden" value="user">
+                                                <input type="hidden" name="link" value="http://127.0.0.1:8000/verify/">
+                                                <label id="email-regis-label">Email * <span style="color: red; font-style: bold" id="eror-email-span"></label>
+                                                <input name="email_register" type="email" value="" required="" id="#email">
+                                                <label id="password-regis-label">Password *</label>
+                                                <input name="password_register" type="password" value="" required="">
+                                                <button type="submit" class="log-submit-btn" id="btn-register" ><span>Register</span></button>
+                                            </div>    
+                                        </div>
+                                        <div id="link-resend-email">
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -260,11 +268,130 @@
             <!--register form end -->
             <a class="to-top"><i class="fa fa-angle-up"></i></a>
         </div>
+        <input type="hidden" name="user_new" value="">
         <!-- Main end -->
         <!--=============== scripts  ===============-->
         <script type="text/javascript" src="{{asset('assets/user/js/jquery.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('assets/user/js/plugins.js')}}"></script>
         <script type="text/javascript" src="{{asset('assets/user/js/scripts.js')}}"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwJSRi0zFjDemECmFl9JtRj1FY7TiTRRo&libraries=places&callback=initAutocomplete"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $('#btn-register').on('click', function(){
+                    var name = $('input[name=name]').val();
+                    var email = $('input[name=email_register]').val();
+                    var password = $('input[name=password_register]').val();
+                    var role = $('input[name=role]').val();
+                    var link = $('input[name=link]').val();
+                    $.ajax({
+                        url: '/register-user',
+                        method: 'POST',
+                        data:{
+                            name: name,
+                            email: email,
+                            role: role,
+                            password: password,
+                            link: link
+                        },
+                        success: function(response){
+                            if (response.notif == 'eror-name') {
+                                $('#eror-email-span').empty();
+                                $('#eror-name-span').html( 'nama tidak boleh ada nomor!');
+                                $('input[name=password_register]').val("");
+                            }else if(response.notif == 'eror-email') {
+                                $('#eror-name-span').empty();
+                                $('#eror-email-span').html( 'email telah terdaftar!');
+                                $('input[name=password_register]').val("");
+                            }else if(response.notif == 'eror-name-email'){
+                                $('#eror-name-span').html( 'nama tidak boleh ada nomor!');
+                                $('#eror-email-span').html( 'email telah terdaftar!');
+                            }else if(response.notif == 'success'){
+                                var string = '<p style="text-align: justify;">Email Verifikasi Telah Dikirimkan ke Email Anda. Mohon untuk melakukan verifikasi email sebelum login.</p>';
+                                var link = '<a href="javascript:void(0)" class="resend" style="text-decoration: underline; float: left;"> Belum Mendapatkan Email?</a>'
+                                $('#tab2-line-1').html(string);
+                                $('#link-resend-email').html(link);
+                                $('input[name=user_new]').val(response.id);
+                            }
+                        },
+                        error: function(){
+                            alert('eror');
+                        }
+                    });
+                });
+                $('#btn-login').on('click', function(){
+                    var email = $('input[name=email_login]').val();
+                    var password = $('input[name=password_login]').val();
+                    $.ajax({
+                        url: '/login/user',
+                        method: 'POST',
+                        data: {
+                            email: email,
+                            password: password,
+                        },
+                        success: function(response){
+                            if (response.notif == 'success') {
+                                var image_link = '/images/user/'+response.profile_image;
+                                var profile_link = '/user/'+response.id;
+                                $('meta[name="csrf-token"]').attr('content', response.token);
+                                $.ajaxSetup({
+                                    headers: {
+                                        'X-CSRF-TOKEN': response.token
+                                    }
+                                });
+                                $('#sign-form').attr('style', 'display: none;');
+                                $('#user-name').text(response.name);
+                                $('#profile-user').attr('href', profile_link);
+                                $('#image-user').attr('src', image_link);
+                                $('#profile-header').removeAttr('style');
+                                $('.modal').fadeOut();
+                                $("html, body").removeClass("hid-body");
+                            }else if(response.notif == 'failed'){
+                                alert('login gagal');
+                            }
+                        }
+                    });
+                });
+                $('#btn-logout').on('click', function(){
+                    $.ajax({
+                        url: '/logout/user',
+                        method: 'GET',
+                        success: function(response){
+                            $('meta[name="csrf-token"]').attr('content', response.token);
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': response.token
+                                }
+                            });
+                            $('#profile-header').attr('style', 'display: none');
+                            $('#sign-form').removeAttr('style');
+                        }
+                    });
+                });
+            });
+        </script>
+        <script type="text/javascript">
+            $('#link-resend-email').on('click', function(){
+                var id = $('input[name=user_new]').val();
+                $.ajax({
+                    url: '/verify/resend/'+id,
+                    method: 'GET',
+                    success: function(response){
+                        if (response.notif == 'belum verify') {
+                            alert('Email Verification Berhasil dikirimkan.');
+                        }else{
+                            alert('Email Sudah Terverifikasi, mohon untuk melanjutkannya ke Login');
+                        }
+                    },
+                    eror: function(){
+                        alert('eror');
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

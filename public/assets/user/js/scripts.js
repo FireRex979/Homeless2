@@ -497,6 +497,11 @@ function initCitybook() {
     });
     $('.close-reg').on("click", function () {
         modal.hide();
+        $('#eror-email-span').empty();
+        $('#eror-name-span').empty();
+        $('input[name=name]').val("");
+        $('input[name=email_register]').val("");
+        $('input[name=password_register]').val("");
     });
     $('.close-reg-input').on("click", function () {
         modal_input.hide();
@@ -939,3 +944,4 @@ function sendButtonRemove(id){
     $('#'+id_input).empty();
     $('#'+id_onclick).attr('onClick', 'addInputComment('+"'"+id+"'"+')');
 }
+

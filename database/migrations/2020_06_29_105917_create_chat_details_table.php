@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTipeRumahsTable extends Migration
+class CreateChatDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateTipeRumahsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipe_rumahs', function (Blueprint $table) {
+        Schema::create('chat_details', function (Blueprint $table) {
             $table->id();
-            $table->string('tipe_name');
-            $table->string('jenis_property');
-            $table->integer('price');
-            $table->text('description');
-            $table->integer('land_size');
-            $table->integer('home_size');
+            $table->foreignId('chat_id')->constrained('chats');
+            $table->text('message');
+            $table->datetime('time_sent');
+            $table->date('read_at');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateTipeRumahsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipe_rumahs');
+        Schema::dropIfExists('chat_details');
     }
 }
