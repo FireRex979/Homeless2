@@ -36,7 +36,13 @@ Route::get('/mail', function () {
 
 
 //Route untuk admin
-Route::get('/admin/home', 'AdminController@index');
+Route::get('/admin/home', 'AdminController@index')->name('home');
 Route::resource('/admin/fasilitas', 'FasilitasController');
 Route::resource('/admin/kategori-artikel', 'KategoriArtikelController');
 Route::resource('/admin/kelebihan', 'KelebihanController');
+Route::resource('/admin/tipe', 'TipePerumahanController');
+Route::post('/admin/tipe/image', 'TipePerumahanController@store_image')->name('tipe.store.image');
+Route::post('/admin/tipe/image_delete', 'TipePerumahanController@delete_image')->name('tipe.delete.image');
+Route::post('/admin/tipe/unique', 'TipePerumahanController@findName')->name('tipe.find');
+Route::post('/admin/tipe/upload-gambar', 'TipePerumahanController@addGambar')->name('tipe.edit.addGambar');
+Route::post('/admin/tipe/delete-gambar', 'TipePerumahanController@deleteGambar')->name('tipe.edit.deleteGambar');

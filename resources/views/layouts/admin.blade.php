@@ -291,7 +291,7 @@
                             <span class="hide-menu">Perumahan</span>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="app-calendar.html" aria-expanded="false"><i class="mdi mdi-calendar"></i><span
+                                href="{{route('tipe.index')}}" aria-expanded="false"><i class="mdi mdi-calendar"></i><span
                                     class="hide-menu">Tipe Perumahan</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="app-chats.html" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
@@ -342,7 +342,7 @@
                 <div class="col-md-5 col-12 align-self-center">
                     <h3 class="text-themecolor mb-0">Dashboard</h3>
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
                         <li class="breadcrumb-item active">@yield('title')</li>
                     </ol>
                 </div>
