@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTipeRumahsTable extends Migration
+class CreateFurnitureTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateTipeRumahsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipe_rumahs', function (Blueprint $table) {
+        Schema::create('furnitures', function (Blueprint $table) {
             $table->id();
-            $table->string('tipe_name');
-            $table->enum('jenis_property', ['tanah', 'rumah']);
-            $table->integer('price');
+            $table->string('furniture_name');
             $table->text('description');
-            $table->integer('land_size');
-            $table->integer('home_size');
+            $table->integer('price');
+            $table->foreignId('category_id')->constrained('category_furnitures');
             $table->timestamps();
-            $table->datetime('deleted_at');
         });
     }
 
@@ -33,6 +30,6 @@ class CreateTipeRumahsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipe_rumahs');
+        Schema::dropIfExists('furnitures');
     }
 }

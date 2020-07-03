@@ -18,6 +18,7 @@ class CreateKelebihansTable extends Migration
             $table->string('kelebihan');
             $table->string('satuan');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

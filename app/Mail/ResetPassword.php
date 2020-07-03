@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class MailtoAdmin extends Mailable
+class ResetPassword extends Mailable
 {
     use Queueable, SerializesModels;
     protected $data;
@@ -17,22 +17,22 @@ class MailtoAdmin extends Mailable
      * @return void
      */
     public function __construct($data)
-    {   
+    {
         $this->data = $data;
     }
+
     /**
      * Build the message.
      *
      * @return $this
      */
     public function build()
-    {   
+    {
         return $this->from('homeless@gmail.com', 'Admin')
-                    ->subject("Verification Email")
-                    ->markdown('mail.verification_mail')
+                    ->subject("Reset Password Email")
+                    ->markdown('mail.reset_password')
                     ->with([
-                        'name' => $this->data->name,
-                        'id' => $this->data->id,
+                        'code' => $this->data['code'],
                     ]);
     }
 }

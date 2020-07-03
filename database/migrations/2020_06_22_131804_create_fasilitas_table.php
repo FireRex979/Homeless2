@@ -17,6 +17,7 @@ class CreateFasilitasTable extends Migration
             $table->id();
             $table->string('fasilitas');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

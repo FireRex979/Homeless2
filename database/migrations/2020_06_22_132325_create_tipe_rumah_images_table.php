@@ -18,6 +18,7 @@ class CreateTipeRumahImagesTable extends Migration
             $table->string('image');
             $table->foreignId('tipe_rumah_id')->constrained('tipe_rumahs');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

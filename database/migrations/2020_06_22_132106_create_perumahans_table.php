@@ -19,6 +19,7 @@ class CreatePerumahansTable extends Migration
             $table->string('address');
             $table->text('description');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

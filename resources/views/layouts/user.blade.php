@@ -34,9 +34,10 @@
                         <a href="/home"><img src="assets/user/images/logo.png" alt=""></a>
                     </div>
                     @if(Auth::check())
-                    <div class="header-user-menu">
+                    <div class="show-reg-form modal-open" id="sign-form" style="display: none;"><i class="fa fa-sign-in"></i>Sign In</div>
+                    <div class="header-user-menu" id="profile-header">
                         <div class="header-user-name">
-                            <span><img src="/images/user/{{Auth::user()->profile_image}}" alt=""></span>
+                            <span><img src="/images/user/{{Auth::user()->profile_image}}" alt="" id="profile-image-header"></span>
                             {{Auth::user()->name}}
                         </div>
                         <ul>
@@ -79,6 +80,9 @@
                                 </li>
                                 <li>
                                     <a href="/residence" id="perumahan">Perumahan</a>
+                                </li>
+                                <li>
+                                    <a href="/furniture" id="furniture">Furniture</a>
                                 </li>
                                 <li>
                                     <a href="/news" id="news">Berita</a>
@@ -209,9 +213,8 @@
                         <div class="close-reg"><i class="fa fa-times"></i></div>
                         <h3>Sign In <span>City<strong>Book</strong></span></h3>
                         <div class="soc-log fl-wrap">
-                            <p>For faster login or register use your social account.</p>
-                            <a href="#" class="facebook-log"><i class="fa fa-facebook-official"></i>Log in with Facebook</a>
-                            <a href="#" class="twitter-log"><i class="fa fa-twitter"></i> Log in with Twitter</a>
+                            <p>Login Cepat menggunakan akun Facebook Anda.</p>
+                            <a href="/auth/facebook" class="facebook-log"><i class="fa fa-facebook-official"></i>Log in dengan Facebook</a>
                         </div>
                         <div class="log-separator fl-wrap"><span>or</span></div>
                         <div id="tabs-container">
@@ -222,21 +225,35 @@
                             <div class="tab">
                                 <div id="tab-1" class="tab-content">
                                     <div class="custom-form">
-                                        <!-- <form method="POST"  name="" action="{{ route('login') }}">
-                                            @csrf -->
-                                            <label>Email Address * </label>
+                                        <div id="form-login">
+                                            <label>Email Address * <span style="color: red; font-style: bold;" id="eror-email-login"></span></label>
                                             <input name="email_login" type="email"   onClick="this.select()" value="" required="">
-                                            <label >Password * </label>
+                                            <label >Password * <span style="color: red; font-style: bold;" id="eror-password-login"></span></label>
                                             <input name="password_login" type="password"   onClick="this.select()" value="" required="">
                                             <button type="submit" id="btn-login" class="log-submit-btn"><span>Log In</span></button>
                                             <div class="clearfix"></div>
                                             <div class="filter-tags">
-                                                <input id="check-a" type="checkbox" name="check">
+                                                <input id="check-a" type="checkbox" name="remember" id="remember">
                                                 <label for="check-a">Remember me</label>
                                             </div>
-                                        <!-- </form> -->
-                                        <div class="lost_password">
-                                            <a href="#">Lupa Password?</a>
+
+                                            <div class="lost_password">
+                                                <a href="javascript:void(0)" id="forget-password">Lupa Password?</a>
+                                            </div>
+                                        </div>
+                                        <div id="form-forget-password" style="display: none;">
+                                            <label id="name-regis-label">Email * <span style="color: red; font-style: bold" id="eror-email-not-register"></label>
+                                            <input name="email_forget_password" type="text" value="" required="">
+                                            <button type="submit" class="log-submit-btn" id="btn-send-otp-code"><span>Kirim Kode OTP</span></button>
+                                        </div>
+                                        <div id="form-forget-password-code" style="display: none;">
+                                            <label>Token 6 digit * <span style="color: red; font-style: bold" id="eror-token-not-match"></span></label>
+                                            <input name="token_reset_password" type="text" value="" required="">
+                                            <label>Masukkan Password Baru *</label>
+                                            <input type="password" name="newpassword" required="" readonly="">
+                                            <label>Masukkan ulang Password Baru *<span style="color: red; font-style: bold" id="eror-newpassword-not-match"></span></label>
+                                            <input type="password" name="passwordconfirmed" required="" readonly="">
+                                            <button type="submit" class="log-submit-btn" id="btn-reset-password"><span>Ganti Password</span></button>
                                         </div>
                                     </div>
                                 </div>
@@ -252,7 +269,9 @@
                                                 <input name="email_register" type="email" value="" required="" id="#email">
                                                 <label id="password-regis-label">Password *</label>
                                                 <input name="password_register" type="password" value="" required="">
-                                                <button type="submit" class="log-submit-btn" id="btn-register" ><span>Register</span></button>
+                                                <label>Konfirmasi Password * <span style="color: red; font-size: bold;" id="eror-password-confirmed"></span></label>
+                                                <input type="password" name="password_confirmed" value="" required="">
+                                                <button type="submit" class="log-submit-btn" id="btn-register" disabled=""><span>Register</span></button>
                                             </div>    
                                         </div>
                                         <div id="link-resend-email">
@@ -269,6 +288,8 @@
             <a class="to-top"><i class="fa fa-angle-up"></i></a>
         </div>
         <input type="hidden" name="user_new" value="">
+        <input type="hidden" name="otp_code" value="">
+        <input type="hidden" name="id_user_forget_password" value="">
         <!-- Main end -->
         <!--=============== scripts  ===============-->
         <script type="text/javascript" src="{{asset('assets/user/js/jquery.min.js')}}"></script>
@@ -303,13 +324,16 @@
                                 $('#eror-email-span').empty();
                                 $('#eror-name-span').html( 'nama tidak boleh ada nomor!');
                                 $('input[name=password_register]').val("");
+                                $('input[name=password_confirmed]').val("");
                             }else if(response.notif == 'eror-email') {
                                 $('#eror-name-span').empty();
                                 $('#eror-email-span').html( 'email telah terdaftar!');
                                 $('input[name=password_register]').val("");
+                                $('input[name=password_confirmed]').val("");
                             }else if(response.notif == 'eror-name-email'){
                                 $('#eror-name-span').html( 'nama tidak boleh ada nomor!');
                                 $('#eror-email-span').html( 'email telah terdaftar!');
+                                $('input[name=password_confirmed]').val("");
                             }else if(response.notif == 'success'){
                                 var string = '<p style="text-align: justify;">Email Verifikasi Telah Dikirimkan ke Email Anda. Mohon untuk melakukan verifikasi email sebelum login.</p>';
                                 var link = '<a href="javascript:void(0)" class="resend" style="text-decoration: underline; float: left;"> Belum Mendapatkan Email?</a>'
@@ -326,12 +350,14 @@
                 $('#btn-login').on('click', function(){
                     var email = $('input[name=email_login]').val();
                     var password = $('input[name=password_login]').val();
+                    var remember = $('input[name=remember]').val();
                     $.ajax({
                         url: '/login/user',
                         method: 'POST',
                         data: {
                             email: email,
                             password: password,
+                            remember: remember,
                         },
                         success: function(response){
                             if (response.notif == 'success') {
@@ -351,30 +377,21 @@
                                 $('.modal').fadeOut();
                                 $("html, body").removeClass("hid-body");
                             }else if(response.notif == 'failed'){
-                                alert('login gagal');
+                                $('#eror-email-login').html('invalid email or password');
+                            }else if(response.notif == 'need verified'){
+                                $('#eror-email-login').html('Email belum terverifikasi, mohon cek email!');
                             }
-                        }
-                    });
-                });
-                $('#btn-logout').on('click', function(){
-                    $.ajax({
-                        url: '/logout/user',
-                        method: 'GET',
-                        success: function(response){
-                            $('meta[name="csrf-token"]').attr('content', response.token);
-                            $.ajaxSetup({
-                                headers: {
-                                    'X-CSRF-TOKEN': response.token
-                                }
-                            });
-                            $('#profile-header').attr('style', 'display: none');
-                            $('#sign-form').removeAttr('style');
                         }
                     });
                 });
             });
         </script>
         <script type="text/javascript">
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $('#link-resend-email').on('click', function(){
                 var id = $('input[name=user_new]').val();
                 $.ajax({
@@ -389,6 +406,103 @@
                     },
                     eror: function(){
                         alert('eror');
+                    }
+                });
+            });
+            $('#btn-logout').on('click', function(){
+                $.ajax({
+                    url: '/logout/user',
+                    method: 'GET',
+                    success: function(response){
+                        $('meta[name="csrf-token"]').attr('content', response.token);
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': response.token
+                            }
+                        });
+                        $('#profile-header').attr('style', 'display: none');
+                        $('#sign-form').removeAttr('style');
+                        $('input[name=password_login]').val('');
+                    }
+                });
+            });
+            $('input[name=password_confirmed]').keyup(function(){
+                var password = $('input[name=password_register]').val();
+                var password_confirmed = $('input[name=password_confirmed]').val();
+                if (password != password_confirmed) {
+                    $('#eror-password-confirmed').html('password tidak sama');
+                }else{
+                    $('#eror-password-confirmed').empty();
+                    $('#btn-register').removeAttr('disabled');
+                }
+            });
+            $('#forget-password').on('click', function(){
+                $('#form-login').attr('style', 'display: none');
+                $('#form-forget-password-code').attr('style', 'display: none');
+                $('#form-forget-password').removeAttr('style');
+            });
+            $('#btn-send-otp-code').on('click', function(){
+                var email = $('input[name=email_forget_password]').val();
+                $.ajax({
+                    url: '/user/forget-password/get-otp-code',
+                    method: 'POST',
+                    data: {
+                        email: email,
+                    },
+                    success: function(response){
+                        if (response.notif == 'success') {
+                            $('input[name=otp_code]').val(response.otp['code']);
+                            $('input[name=id_user_forget_password]').val(response.id);
+                            $('#form-login').attr('style', 'display: none');
+                            $('#form-forget-password').attr('style', 'display: none');
+                            $('#form-forget-password-code').removeAttr('style');
+                            $('#eror-email-not-register').empty();
+                            alert("Kode OTP Telah dikirimkan ke Email Anda, mohon dicek.");
+                        }else if(response.notif == 'failed'){
+                            $('#eror-email-not-register').html('Email Belum Terdaftar');
+                        }
+                    }
+                });
+            });
+            $('input[name=token_reset_password]').keyup(function(){
+                var otp = $('input[name=otp_code]').val();
+                var token = $('input[name=token_reset_password]').val();
+                if (otp != token) {
+                    $('#eror-token-not-match').html('token salah');
+                }else{
+                    $('input[name=newpassword]').removeAttr('readonly');
+                    $('input[name=passwordconfirmed]').removeAttr('readonly');
+                    $('#eror-token-not-match').empty();
+                }
+            });
+            $('input[name=passwordconfirmed').keyup(function(){
+                var password = $('input[name=newpassword]').val();
+                var passwordconfirmed = $('input[name=passwordconfirmed]').val();
+                if (password != passwordconfirmed) {
+                    $('#eror-newpassword-not-match').html('password tidak cocok!');
+                }else{
+                    $('#eror-newpassword-not-match').empty();
+                }
+            });
+            $('#btn-reset-password').on('click', function(){
+                var id = $('input[name=id_user_forget_password]').val();
+                var newpassword = $('input[name=newpassword]').val();
+                $.ajax({
+                    url: '/user/forget-password/'+id,
+                    method: 'POST',
+                    data: {
+                        newpassword: newpassword,
+                    },
+                    success: function(response){
+                        alert("Password berhasil dirubah, Silahkan Login Ulang!");
+                        $('#form-login').removeAttr('style');
+                        $('#form-forget-password').attr('style', 'display: none');
+                        $('#form-forget-password-code').attr('style', 'display: none');
+                        $('input[name=email_forget_password]').val('');
+                        $('input[name=otp_code]').val('');
+                        $('input[name=token_reset_password]').val('');
+                        $('input[name=newpassword]').val('');
+                        $('input[name=passwordconfirmed]').val('');
                     }
                 });
             });

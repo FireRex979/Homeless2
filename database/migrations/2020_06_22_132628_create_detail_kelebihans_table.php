@@ -19,6 +19,7 @@ class CreateDetailKelebihansTable extends Migration
             $table->foreignId('kelebihan_id')->constrained('kelebihans');
             $table->integer('nilai');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

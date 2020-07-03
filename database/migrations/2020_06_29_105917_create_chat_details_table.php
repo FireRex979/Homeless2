@@ -20,6 +20,7 @@ class CreateChatDetailsTable extends Migration
             $table->datetime('time_sent');
             $table->date('read_at');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

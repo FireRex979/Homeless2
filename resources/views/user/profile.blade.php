@@ -9,6 +9,7 @@
             var form = "event.preventDefault();"+
                         "document.getElementById('logout-form').submit();";
             $('#btn-logout').attr('href', '{{route("logout")}}').attr('onclick', form);
+            $('#btn-logout-2').attr('href', '{{route("logout")}}').attr('onclick', form);
         }
     })
 </script>
@@ -34,13 +35,13 @@
                                                 <div class="user-profile-menu">
                                                     <h3>Menu</h3>
                                                     <ul>															
-                                                        <li><a href="/profile/user/{{Auth::user()->id}}" class="user-profile-act"><i class="fa fa-user-o"></i> Profile</a></li>
+                                                        <li><a href="/user/{{Auth::user()->id}}" class="user-profile-act"><i class="fa fa-user-o"></i> Profile</a></li>
                                                         <li><a href="/message"><i class="fa fa-envelope-o"></i> Pesan <span>3</span></a></li>
                                                         <li><a href="/forget-password"><i class="fa fa-unlock-alt"></i>Ganti Password</a></li>
                                                     </ul>
                                                 </div>
                                                 <!-- user-profile-menu end-->                                       
-                                                <a href="#" class="log-out-btn">Log Out</a>
+                                                <a href="" id="btn-logout-2" class="log-out-btn">Log Out</a>
                                             </div>
                                         </div>
                                     </div>
@@ -134,6 +135,7 @@
                     var reader=new FileReader();
                     reader.onload=function(ev){
                         $('#profile-image').attr('src', ev.target.result);
+                        $('#profile-image-header').attr('src', ev.target.result);
                     }
                     reader.readAsDataURL(this.files[0]);
                     var postData=new FormData();
@@ -154,14 +156,5 @@
                 }
             });
         });
-    </script>
-    <script type="text/javascript">
-        function previewImage(){
-            var oFRead = new FileReader();
-            oFReader.readAsDataURL(document.getElementById("input-image").files[0]);
-            oFReader.onload = function(oFREvent){
-                document.getElementById("profile_image").src = oFREvent.target.result;
-            }
-        }
     </script>
 @endsection

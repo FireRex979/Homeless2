@@ -18,6 +18,7 @@ class CreateArticleImagesTable extends Migration
             $table->foreignId('article_id')->constrained('articles');
             $table->string('image');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

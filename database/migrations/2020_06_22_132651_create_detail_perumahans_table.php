@@ -18,6 +18,7 @@ class CreateDetailPerumahansTable extends Migration
             $table->foreignId('tipe_rumah_id')->constrained('tipe_rumahs');
             $table->foreignId('perumahan_id')->constrained('perumahans');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

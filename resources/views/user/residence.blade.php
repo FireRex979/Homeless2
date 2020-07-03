@@ -82,7 +82,7 @@
                                             </div>
                                         </div>
                                         <!-- hidden-listing-filter end -->
-                                        <button class="button fs-map-btn">Update</button>
+                                        <button class="button fs-map-btn" style="margin-top: 20px;">Update</button>
                                         <div class="more-filter-option">More Filters <span></span></div>
                                     </div>
                                     <!-- listsearch-input-wrap end -->   

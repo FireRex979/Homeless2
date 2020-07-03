@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Hash;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/kpr', function () {
+    return view('user.simulasi_kpr');
 });
 
 Route::get('/home', function () {
@@ -29,8 +29,8 @@ Route::get('/residence', function () {
     return view('user.residence');
 });
 
-Route::get('/profile', function () {
-    return view('user.profile');
+Route::get('/furniture', function(){
+    return view('user.furniture');
 });
 
 Route::get('/message', function () {
@@ -38,7 +38,8 @@ Route::get('/message', function () {
 });
 
 Route::get('/forget-password', function () {
-    return view('user.forget_password');
+    $route = 'profile';
+    return view('user.forget_password', compact('route'));
 });
 
 Route::get('/news-detail', function () {
@@ -47,6 +48,10 @@ Route::get('/news-detail', function () {
 
 Route::get('/news', function () {
     return view('user.news');
+});
+
+Route::get('/sendCodeResetPassword', function () {
+    return view('mail.reset_password');
 });
 
 Route::get('/sendbasicemail','MailController@basic_email');
@@ -65,6 +70,12 @@ Route::get('/logout/user', 'UserController@logout');
 Route::get('/user/{id}', 'UserController@profile');
 Route::post('/edit-profile/user/{id}', 'UserController@editProfile');
 Route::post('/change/image/profile/{id}', 'UserController@imageProfile');
+Route::post('/user/change/password/{id}', 'UserController@changePassword');
+Route::post('/user/forget-password/get-otp-code', 'UserController@getCodeResetPassword');
+Route::post('/user/forget-password/{id}', 'UserController@forgetPassword');
+
+Route::get('/auth/facebook', 'UserController@redirectToFacebook');
+Route::get('/auth/facebook/callback', 'UserController@handleFacebookCallback');
 Route::get('/test', function(){
     return view('user.test');
 });

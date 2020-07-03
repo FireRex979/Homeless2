@@ -19,6 +19,7 @@ class CreateDetailFasilitasTable extends Migration
             $table->foreignId('fasilitas_id')->constrained('fasilitas');
             $table->integer('jumlah');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

@@ -122,7 +122,7 @@
                                             </div>
                                             <p>Ut euismod ultricies sollicitudin. Curabitur sed dapibus nulla. Nulla eget iaculis lectus. Mauris ac maximus neque. Nam in mauris quis libero sodales eleifend. Morbi varius, nulla sit amet rutrum elementum, est elit finibus tellus, ut tristique elit risus at metus.</p>
                                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in pulvinar neque. Nulla finibus lobortis pulvinar. Donec a consectetur nulla. Nulla posuere sapien vitae lectus suscipit, et pulvinar nisi tincidunt. Aliquam erat volutpat. Curabitur convallis fringilla diam sed aliquam. Sed tempor iaculis massa faucibus feugiat. In fermentum facilisis massa, a consequat purus viverra.</p>
-                                            <a href="#" class="btn transparent-btn float-btn modal-input-open">Hubungi Pengembang <i class="fa fa-angle-right"></i></a>
+                                            <a href="#" class="btn transparent-btn float-btn modal-input-open">Booking Sekarang <i class="fa fa-angle-right"></i></a>
                                             <span class="fw-separator"></span>
                                             <div class="list-single-main-item-title fl-wrap">
                                                 <h3>Kelebihan</h3>
@@ -161,31 +161,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--box-widget-item end -->     														
-                                        <!--box-widget-item -->
-                                        <div class="box-widget-item fl-wrap">
-                                            <div class="box-widget-item-header">
-                                                <h3>Pengembang : </h3>
-                                            </div>
-                                            <div class="box-widget list-author-widget">
-                                                <div class="list-author-widget-header shapes-bg-small  color-bg fl-wrap">
-                                                    <span class="list-author-widget-link"><a href="author-single.html">Alisa Noory</a></span>
-                                                    <img src="assets/user/images/avatar/1.jpg" alt=""> 
-                                                </div>
-                                                <div class="box-widget-content">
-                                                    <div class="list-author-widget-text">
-                                                        <div class="list-author-widget-contacts">
-                                                            <ul>
-                                                                <li><span><i class="fa fa-user"></i> Nama :</span> <a href="#">GoverBay</a></li>
-                                                                <li><span><i class="fa fa-envelope-o"></i> Email :</span> <a href="#">admin@email.com</a></li>
-                                                            </ul>
-                                                        </div>
-                                                        <a href="" class="btn transparent-btn modal-input-open">Hubungi Pengembang</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--box-widget-item end -->   
+                                        <!--box-widget-item end -->     											 
                                     </div>
                                 </div>
                                 <!--box-widget-wrap end -->
@@ -204,16 +180,44 @@
                 <div class="main-register-holder">
                     <div class="main-register fl-wrap">
                         <div class="close-reg close-reg-input"><i class="fa fa-times"></i></div>
-                        <h3>Hubungi Pengembang</h3>
+                        <h3>Formulir Booking</h3>
                         <div class="soc-log fl-wrap">
                             <div class="custom-form">
-                                <form method="GET"  name="registerform" action="/sendbasicemail">
-                                    <label>Kirim ke</label>
-                                    <input name="emaildestination" type="text"   onClick="this.select()" value="admin@gmail.com" readonly="">
-                                    <label>Subject</label>
-                                    <input name="subject" type="text"   onClick="this.select()" placeholder="Subject Email">
-                                    <label >Pesan</label>
-                                    <textarea cols="50" rows="3" placeholder="Ketikkan Pertanyaan Anda" name="message"></textarea>
+                                @if(Auth::check())
+                                    <label>Email*</label>
+                                    <input name="email_booking" type="email" onClick="this.select()" value="{{Auth::user()->email}}">
+                                    <label>Nama*</label>
+                                    <input name="name_booking" type="text" onClick="this.select()" placeholder="" value="{{Auth::user()->name}}">
+                                    <label>No Telepon*</label>
+                                    <input name="no_tlp_booking" type="text" onClick="this.select()" placeholder="" value="{{Auth::user()->no_tlp}}">
+                                @else
+                                    <label>Email*</label>
+                                    <input name="email_booking" type="email" onClick="this.select()" value="" placeholder="Masukkan Email">
+                                    <label>Nama*</label>
+                                    <input name="name_booking" type="text" onClick="this.select()" placeholder="Masukkan Nama Lengkap" value="">
+                                    <label>No Telepon*</label>
+                                    <input name="no_tlp_booking" type="text" onClick="this.select()" placeholder="No Telepon" value="">
+                                @endif
+                                    <label>Tipe Rumah*</label>
+                                    <select data-placeholder="All Categories" class="chosen-select" name="tipe">
+                                        <option>Pilih Tipe Rumah</option>
+                                        @for($i=1;$i<=5;$i++)
+                                        <option>Tipe {{$i}}</option>
+                                        @endfor
+                                    </select>
+                                    <label>Tambahan Paket</label>
+                                    <select data-placeholder="All Categories" class="chosen-select" name="paket">
+                                        <option>Pilih Paket yang tersedia</option>
+                                        @for($i=1;$i<=5;$i++)
+                                        <option>Paket {{$i}}</option>
+                                        @endfor
+                                    </select>
+                                    <label>Harga Properti(Rp)</label>
+                                    <input name="price_home" type="text" onClick="this.select()" placeholder="Harga Rumah" value="0" readonly="">
+                                    <label>Harga Paket(Rp)</label>
+                                    <input name="price_paket" type="text" onClick="this.select()" placeholder="Harga Paket" value="0" readonly="">
+                                    <label>Total Harga(Rp)</label>
+                                    <input name="price_total" type="text" onClick="this.select()" placeholder="Total Harga" value="0" readonly="">
                                     <button type="submit"  class="log-submit-btn"><span>Kirim</span></button>
                                     <div class="clearfix"></div>
                                 </form>

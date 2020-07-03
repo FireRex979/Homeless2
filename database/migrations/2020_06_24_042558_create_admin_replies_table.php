@@ -19,6 +19,7 @@ class CreateAdminRepliesTable extends Migration
             $table->string('reply');
             $table->foreignId('admin_id')->constrained('users');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

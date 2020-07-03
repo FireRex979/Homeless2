@@ -18,6 +18,7 @@ class CreatePerumahanImagesTable extends Migration
             $table->string('image');
             $table->foreignId('perumahan_id')->constrained('perumahans');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

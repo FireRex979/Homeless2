@@ -9,14 +9,16 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Mail;
 use App\Mail\MailtoAdmin;
+use App\Mail\ResetPassword;
 use Illuminate\Support\Facades\Crypt;
 use Auth;
 use File;
+use Laravel\Socialite\Facades\Socialite;
 class UserController extends Controller
 {
 
     public function index(){
-
+        
     	return view('user.home');
 
     }
@@ -39,7 +41,6 @@ class UserController extends Controller
     		$user->role = $request->role;
     		$user->profile_image = "profile.png";
     		$user->save();
-            $data = array($user->id, $user->name, $request->link);
     		Mail::to($request->email)->send(new MailtoAdmin($user));
     		return response()->json(['notif'=>'success', 'id'=>$user->id]);
     	}
@@ -68,12 +69,18 @@ class UserController extends Controller
     }
 
     public function login(Request $request){
-        if (Auth::guard('web')->attempt(['email'=>$request->email, 'password'=>$request->password], $request->remember)) {
-            session()->regenerate();
-            return response()->json(['notif'=>'success', 'name'=>Auth::user()->name, 'profile_image'=> Auth::user()->profile_image, 'id'=>Auth::user()->id, 'token'=>csrf_token()], 200);
+        $user = User::where('email', '=', $request->email)->first();
+        if($user->email_verified_at == NULL){
+            return response()->json(['notif'=>'need verified']);
         }else{
-            return response()->json(['notif'=>'failed']);
+            if (Auth::guard('web')->attempt(['email'=>$request->email, 'password'=>$request->password], $request->remember)) {
+                session()->regenerate();
+                return response()->json(['notif'=>'success', 'name'=>Auth::user()->name, 'profile_image'=> Auth::user()->profile_image, 'id'=>Auth::user()->id, 'token'=>csrf_token()], 200);
+            }else{
+                return response()->json(['notif'=>'failed']);
+            }
         }
+        
     }
 
     public function logout(){
@@ -108,6 +115,58 @@ class UserController extends Controller
             $user = User::find($id);
             $user->profile_image = $filename;
             $user->save();
+        }
+    }
+
+    public function changePassword(Request $request, $id){
+        $user = User::find($id);
+        if (Hash::check($request->oldpassword, $user->password)) {
+            $user->password = Hash::make($request->newpassword);
+            $user->save();
+            return response()->json(['notif'=>'success']);
+        }else{
+            return response()->json(['notif'=>'failed']);
+        }
+    }
+
+    public function getCodeResetPassword(Request $request){
+        $user = User::where('email', '=', $request->email)->first();
+        if (isset($user)) {
+            $code = mt_rand(100000, 999999);
+            $otp = array('code'=>$code);
+            Mail::to($user->email)->send(new ResetPassword($otp));
+            return response()->json(['notif'=>'success', 'otp'=>$otp, 'id'=>$user->id]);    
+        }else{
+            return response()->json(['notif'=>'failed']);
+        }  
+    }
+
+    public function forgetPassword(Request $request, $id){
+        $user = User::find($id);
+        $user->password = Hash::make($request->newpassword);
+        $user->save();
+        return response()->json(['notif'=>'success']);
+    }
+
+    public function redirectToFacebook() {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    public function handleFacebookCallback() {
+        try {
+            $user = Socialite::driver('facebook')->user();
+            $finduser = User::where('facebook_id', $user->id)->first();
+            if ($finduser) {
+                Auth::login($finduser);
+                return redirect('/home');
+            } else {
+                $newUser = User::create(['name' => $user->name, 'email' => $user->email, 'facebook_id' => $user->id, 'profile_image' => 'profile.png', 'role' => 'user']);
+                Auth::login($newUser);
+                return redirect('/home');
+            }
+        }
+        catch(Exception $e) {
+            return redirect('/auth/facebook');
         }
     }
 }

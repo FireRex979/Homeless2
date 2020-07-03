@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateComentRepliesTable extends Migration
+class CreatePaketDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateComentRepliesTable extends Migration
      */
     public function up()
     {
-        Schema::create('coment_replies', function (Blueprint $table) {
+        Schema::create('paket_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('coment_id')->constrained('coments');
-            $table->string('reply');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('paket_id')->constrained('paket_furnitures');
+            $table->foreignId('furniture_id')->constrained('furnitures');
             $table->timestamps();
-            $table->datetime('deleted_at');
         });
     }
 
@@ -30,6 +28,6 @@ class CreateComentRepliesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coment_replies');
+        Schema::dropIfExists('paket_details');
     }
 }

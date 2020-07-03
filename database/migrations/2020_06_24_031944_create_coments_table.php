@@ -19,6 +19,7 @@ class CreateComentsTable extends Migration
             $table->foreignId('article_id')->constrained('articles');
             $table->string('coment');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

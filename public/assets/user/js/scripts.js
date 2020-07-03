@@ -498,6 +498,9 @@ function initCitybook() {
     $('.close-reg').on("click", function () {
         modal.hide();
         $('#eror-email-span').empty();
+        $('#form-login').removeAttr('style');
+        $('#form-forget-password').attr('style', 'display: none');
+        $('#form-forget-password-code').attr('style', 'display: none');
         $('#eror-name-span').empty();
         $('input[name=name]').val("");
         $('input[name=email_register]').val("");

@@ -19,6 +19,7 @@ class CreateArticlesTable extends Migration
             $table->longtext('content');
             $table->foreignId('category_id')->constrained('category_articles');
             $table->timestamps();
+            $table->datetime('deleted_at');
         });
     }
 

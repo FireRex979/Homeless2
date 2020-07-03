@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('role');
+            $table->enum('role', ['super admin', 'admin', 'user']);
             $table->string('no_tlp');
             $table->date('date_of_birth');
             $table->string('profile_image');

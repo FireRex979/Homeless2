@@ -23,7 +23,7 @@
                                                 <div class="user-profile-menu">
                                                     <h3>Menu</h3>
                                                     <ul>
-                                                    	<li><a href="/profile"><i class="fa fa-user-o"></i> Profile</a></li>
+                                                    	<li><a href="/user/{{Auth::user()->id}}"><i class="fa fa-user-o"></i> Profile</a></li>
                                                         <li><a href="/message" class="user-profile-act"><i class="fa fa-envelope-o"></i> Pesan <span>3</span></a></li>
                                                         <li><a href="/forget-password"><i class="fa fa-unlock-alt"></i>Ganti Password</a></li>
                                                     </ul>
