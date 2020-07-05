@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('/assets/admin/src/assets/libs/dropzone/dist/min/dropzone.min.css')}}">
 @endpush
 
-@section('title', 'Tipe Perumahan')
+@section('title', 'Perumahan')
     
 @section('content')
 <input id="signup-token" name="_token" type="hidden" value="{{csrf_token()}}">
@@ -61,11 +61,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title">Tipe Perumahan</h2>
+                    <h2 class="card-title">Perumahan</h2>
                     <h6 class="card-subtitle"></h6>
                     <br>
-                    <a href="{{route('tipe.create')}}">
-                        <button class="btn btn-sm btn-rounded btn-success">+ Tambah Tipe Perumahan</button>
+                    <a href="{{route('perumahan.create')}}">
+                        <button class="btn btn-sm btn-rounded btn-success">+ Tambah Perumahan</button>
                     </a>
                     <br>
                     <br>
@@ -75,33 +75,27 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama Tipe</th>
-                                    <th>Jenis Properti</th>
-                                    <th>Harga</th>
+                                    <th>Nama Perumahan</th>
+                                    <th>Alamat</th>
                                     <th>Deskripsi</th>
-                                    <th>Luas Tanah</th>
-                                    <th>Luas Rumah</th>
                                     <th>Option</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($types)
-                                    @foreach ($types as $type)
+                                @if ($perumahans)
+                                    @foreach ($perumahans as $perumahan)
                                      <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$type->tipe_name}}</td>
-                                        <td>{{$type->jenis_property}}</td>
-                                        <td>{{$type->price}}</td>
-                                        <td>{{$type->description}}</td>
-                                        <td>{{$type->land_size}}</td>
-                                        <td>{{$type->home_size}}</td>
+                                        <td>{{$perumahan->perumahan_name}}</td>
+                                        <td>{{$perumahan->address}}</td>
+                                        <td>{{$perumahan->description}}</td>
                                         <td>
                                             <ul class="list-inline m-0">
                                                 <li class="list-inline-item">
-                                                    <a href="{{route('tipe.edit', $type->id)}}"><button class="edit btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button></a>
+                                                    <a href="{{route('perumahan.edit', $perumahan->id)}}"><button class="edit btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button></a>
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    <button class="hapus btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash" onclick="hapus({{$type->id}},{{$loop->iteration}})"></i></button>
+                                                    <button class="hapus btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash" onclick="hapus({{$perumahan->id}},{{$loop->iteration}})"></i></button>
                                                 </li>
                                             </ul>
                                         </td>
@@ -141,13 +135,13 @@
         var konfirmasi = confirm("Apakah anda yakin menghapus fasilitas?");
         if(konfirmasi == true){
             jQuery.ajax({
-                    url: "/admin/tipe/"+id_tipe,
+                    url: "/admin/perumahan/"+id_tipe,
                     method: 'delete',
                     data: {
                         _token: $('#signup-token').val(),
                     },
                     success: function(result){
-                        $("#pesan").text("Kelebihan "+result.tipe+" telah berhasil dihapus");
+                        $("#pesan").text("Kelebihan "+result.perumh+" telah berhasil dihapus");
                         $("#status-hapus").show();
                         $("#zero_config").find('tbody tr:eq('+String(numRow-1)+')').hide();
                     }

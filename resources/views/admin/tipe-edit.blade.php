@@ -18,6 +18,22 @@
 </div>
 
 <div class="container-fluid">
+    @if ($statusFasilitas)
+        <div class="row"id="status" role="alert">       
+            <div class="col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-header bg-warning">
+                        <h4 class="mb-0 text-white">Peringatan</h4></div>
+                    <div class="card-body">
+                        <h3 class="card-title">Form Fasilitas Perumahan</h3>
+                        <p class="card-text">Kolom <code>jumlah</code> dari failitas perumahan yang baru dimasukkan belum di berikan data. Jadi isikan data jumlah fasilitas sesuai dengan kebutuhan!</p>                  
+                        <a href="javascript:void(0)" class="btn btn-inverse" id="close1">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>        
+    @endif
+
     <div class="row">
         <div class="col-12">
             <div class="card ">
@@ -112,6 +128,53 @@
                             </div>
                             
                         </div>
+
+                        <hr>
+                        <div class="card-body">
+                            <h4 class="card-title">Fasilitas Tipe Perumahan</h4>
+                            
+                            <button class="btn btn-sm btn-rounded btn-success" data-toggle="modal"
+                                    data-target="#addFasilitases">+ Tambah Fasilitas Perumahan</button>
+                            <br><br>
+
+                            <div class="table-responsive">
+                                <table id="tabel-fasilitas" class="table table-striped table-bordered"
+                                    style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Fasilitas</th>
+                                            <th>Jumlah</th>
+                                            <th>Option</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if ($type->fasilitas)
+                                            @foreach ($type->fasilitas as $fasilitas)
+                                             <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td class="fasilitas{{$fasilitas->pivot->id}}">{{$fasilitas->fasilitas}}</td>
+                                                <td class="jumlah{{$fasilitas->pivot->id}}">{{$fasilitas->pivot->jumlah}}</td>
+                                                <td>
+                                                    <ul class="list-inline m-0">
+                                                        <li class="list-inline-item">
+                                                            <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="modal" data-target="#editFasilitas" data-placement="top" title="Edit" onclick="editFasilitas({{$fasilitas->pivot->id}})"><i class="fa fa-edit"></i></button>
+                                                            <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete" onclick="hapusFasilitas({{$fasilitas->pivot->id}}, {{$loop->iteration}})"><i class="fa fa-trash"></i></button>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                        @else
+                                                <tr>
+                                                    <td>Belum ada data fasilitas</td>
+                                                </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                         
                         <hr>
                         <div id="view-gambar" class="card-body">
@@ -188,6 +251,80 @@
                 <button type="button" class="btn btn-secondary"
                     data-dismiss="modal">Close</button>
                 <input type="submit" class="btn btn-success">
+            </div>
+        </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+
+<div class="modal fade" id="addFasilitases" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Tambah Fasilitas Perumahan</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"> <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formAddFasilitas" action="{{route('tipe.edit.addFasilitas')}}" method="POST">
+            <div class="modal-body">
+                    @csrf
+                    <div class="form-group">
+                        <input type="hidden" name="tipe_rumah_id" value="{{$type->id}}">
+                        <label class="control-label text-left">Fasilitas Perumahan*</label>
+                        <select  id="fasilitas_val" class="form-control" name="fasilitas_id">
+                            <optgroup label="Fasilitas Perumahan">
+                                @foreach ($fasilitases as $fasilitas)
+                                    <option value="{{$fasilitas->id}}">{{$fasilitas->fasilitas}}</option>
+                                @endforeach
+                            </optgroup>
+                        </select>                    
+                    </div>
+                    <div id="addFasilitasDanger" class="form-group">
+                        <label class="control-label text-left">Jumlah Fasilitas*</label>
+                        <input type="text" name="jumlah" class="form-control" id="jumlahAddFasilitas">
+                        <small id="pesan-addFasilitas" class="pesan form-control-feedback">Masukan salah</small>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-success">
+            </div>
+        </form>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+
+<div class="modal fade" id="editFasilitas" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"> Edit Fasilitas Perumahan</h4>
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"> <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formEditFasilitas" action="{{route('tipe.edit.fasilitas')}}" method="POST">
+            <div class="modal-body">
+                    @csrf
+                    <div class="form-group">
+                        <label>Fasilitas</label>
+                        <input id="idEditFasilitas" type="hidden" name="id" value="">
+                        <input id="fasilitasEditFasilitas" type="input" class="form-control" readonly>
+                    </div>
+                    <div id="editFasilitasDanger" class="form-group has-success">
+                        <label>jumlah</label>
+                        <input id="jumlahEditFasilitas" type="input" class="form-control" name="jumlah">
+                        <small id="pesan-editFasilitas" class="pesan form-control-feedback">Masukan salah</small>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    data-dismiss="modal">Close</button>
+                <input id="tombolEditKelebihan" type="submit" class="btn btn-success">
             </div>
         </form>
         </div>
@@ -300,6 +437,13 @@
         return status;
     }
 
+    function editFasilitas(id){
+        // console.log('Fasilitas: '+$('.Fasilitas'+id).text()+' Satuan: '+$('.satuan'+id).text()+' Nilai: '+$('.nilai'+id).text());
+        $('#idEditFasilitas').val(id);
+        $('#fasilitasEditFasilitas').val($('.fasilitas'+id).text());
+        $('#jumlahEditFasilitas').val($('.jumlah'+id).text());
+    }
+
     function hapus(id_gambar, numRow){
         var konfirmasi = confirm("Apakah anda yakin menghapus gambar?");
         if(konfirmasi == true){
@@ -318,6 +462,24 @@
         }
     }
 
+    function hapusFasilitas(idFasilitas, numRow){
+        var konfirmasi = confirm("Apakah anda yakin menghapus Fasilitas ini?");
+        if(konfirmasi == true){
+            jQuery.ajax({
+                url: "{{route('tipe.delete.fasilitas')}}",
+                method:'POST',
+                data: {
+                    _token: $('#signup-token').val(),
+                    id: idFasilitas,
+                },
+                success: function(result){
+                    $("#tabel-fasilitas").find('tbody tr:eq('+String(numRow-1)+')').hide();
+                    alert(result.success);
+                }
+            });
+        }
+    }
+
     $(document).ready(function(){
         $('.pesan').hide();
 
@@ -328,7 +490,33 @@
             }else{
                 $('#home_size').removeAttr('readonly');
             }
-        })
+        });
+
+        $('#formAddFasilitas').submit(function(e){
+            var jumlah = $('#jumlahAddFasilitas').val();
+            var  fasilitas = $('#fasilitas_val').val();
+            if(isNaN(jumlah)){
+                e.preventDefault();
+                showValidation('addFasilitasDanger','pesan-addFasilitas', 'jumlah tidak boleh selain angka');
+            }else if(jumlah <= 0){
+                e.preventDefault();
+                showValidation('addFasilitasDanger','pesan-addFasilitas', 'jumlah tidak boleh kurang dari sama dengan 0');
+            }else if(fasilitas == null || fasilitas == ''){
+                e.preventDefault();
+                showValidation('addFasilitasDanger','pesan-addFasilitas', 'Seluruh Fasilitas telah ada pada perumahan');
+            }
+        });
+
+        $('#formEditFasilitas').submit(function(e){
+            var jumlah = $('#jumlahEditFasilitas').val();
+            if(isNaN(jumlah)){
+                e.preventDefault();
+                showValidation('editFasilitasDanger','pesan-editFasilitas', 'jumlah tidak boleh selain angka');
+            }else if(jumlah <= 0){
+                e.preventDefault();
+                showValidation('editFasilitasDanger','pesan-editFasilitas', 'jumlah tidak boleh kurang dari sama dengan 0');
+            }
+        });
 
         $('#tombol').click(function(){
             var qty = 0;

@@ -17,7 +17,10 @@
     <link href="{{asset('/assets/admin/src/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css')}}" rel="stylesheet">
     <link href="{{asset('/assets/admin/src/assets/libs/c3/c3.min.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
+    <link href="{{asset('/assets/admin/src/assets/libs/select2/dist/css/select2.min.css')}}" rel="stylesheet">
     <link href="{{asset('/assets/admin/dist/css/style.min.css')}}" rel="stylesheet">
+
+
     @stack('script')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -294,7 +297,7 @@
                                 href="{{route('tipe.index')}}" aria-expanded="false"><i class="mdi mdi-calendar"></i><span
                                     class="hide-menu">Tipe Perumahan</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="app-chats.html" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+                                href="{{route('perumahan.index')}}" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
                                     class="hide-menu">Perumahan</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="{{route('fasilitas.index')}}" aria-expanded="false"><i class="mdi mdi-account-box"></i><span

@@ -5,7 +5,7 @@
 @endpush
 
 @section('title')
-    <a href="{{route('tipe.index')}}">Tipe Perumahan</a><li class="breadcrumb-item"></li>Create
+    <a href="{{route('perumahan.index')}}">Perumahan</a><li class="breadcrumb-item"></li>Create
 @endsection
 
 @section('content')
@@ -62,7 +62,7 @@
         <div class="col-12">
             <div class="card ">
                 <div class="card-header bg-info">
-                    <h4 class="card-title text-white">Menambah Data Tipe Perumahan</h4>
+                    <h4 class="card-title text-white">Menambah Data Perumahan</h4>
                 </div>
                     <div class="form-body">
                         <div class="card-body">
@@ -72,25 +72,10 @@
                             <form action="#" class="form-horizontal">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div id="tipe-name" class="form-group row">
-                                        <label class="control-label text-left col-md-2">Nama Tipe*</label>
+                                    <div id="perumahan-name" class="form-group row">
+                                        <label class="control-label text-left col-md-2">Nama Perumahan*</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="tipe_name" class="form-control" placeholder="Masukkan nama tipe" name="tipe_name"><small id="pesan-name" class="pesan form-control-feedback">Masukan salah</small></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/row-->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div id="jenis-property" class="form-group row">
-                                        <label class="control-label text-left col-md-2">Jenis Tipe</label>
-                                        <div class="col-md-9">
-                                            <select  id="jenis_property" class="form-control custom-select" name="jenis_property">
-                                                <option value="">Pilih Jenis Tipe</option>
-                                                <option value="tanah">Tanah</option>
-                                                <option value="rumah">Rumah</option>
-                                            </select>
-                                            <small id="pesan-property" class="pesan form-control-feedback">Masukan salah</small></div>
+                                            <input type="text" id="perumahan_name" class="form-control" placeholder="Masukkan nama perumahan" name="perumahan_name"><small id="pesan-name" class="pesan form-control-feedback">Masukan salah</small></div>
                                     </div>
                                 </div>
                             </div>
@@ -98,10 +83,10 @@
                             <!--/row-->
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div id="prices" class="form-group row">
-                                        <label class="control-label text-left col-md-2">Price (Rp)*</label>
+                                    <div id="addreses" class="form-group row">
+                                        <label class="control-label text-left col-md-2">Alamat*</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="price" class="form-control" placeholder="Masukkan harga Tipe" name="price"><small id="pesan-price" class="pesan form-control-feedback">Masukan salah</small></div>
+                                            <input type="text" id="address" class="form-control" placeholder="Masukkan alamat perumahan" name="address"><small id="pesan-address" class="pesan form-control-feedback">Masukan salah</small></div>
                                     </div>
                                 </div>
                             </div>
@@ -115,29 +100,29 @@
                                     </div>
                                 </div>
                             </div>
+                            
                             <!--/row-->
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div id="land-size" class="form-group row">
-                                        <label class="control-label text-left col-md-2">Luas Tanah (m<sup>2</sup>)*</label>
+                                    <div id="tipe-perumahan" class="form-group row">
+                                        <label class="control-label text-left col-md-2">Tipe Perumahan*</label>
                                         <div class="col-md-9">
-                                            <input type="text" id="land_size" class="form-control" placeholder="Masukkan luas tanah" name="land_size"><small id="pesan-land" class="pesan form-control-feedback">Masukan salah</small></div>
+                                            <small class="form-control-feedback">Pilih Jenis Tipe Perumahan</small>
+                                            <select  id="tipe_perumahan" class="select2 form-control" name="tipe[]" multiple="multiple" style="height: 36px;width: 100%;">
+                                                <optgroup label="Jenis Tipe Perumahan">
+                                                    @foreach ($types as $type)
+                                                        <option value="{{$type->id}}">{{$type->tipe_name}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                            </select>
+                                            <small id="pesan-tipe" class="pesan form-control-feedback">Masukan salah</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!--/row-->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div id="home-size" class="form-group row">
-                                        <label class="control-label text-left col-md-2">Luas Rumah (m<sup>2</sup>)*</label>
-                                        <div class="col-md-9">
-                                            <input type="text" id="home_size" class="form-control" placeholder="Masukkan luas rumah" name="home_size"><small id="pesan-home" class="pesan form-control-feedback">Masukan salah</small></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/row-->
 
-                            <div class="row">
+                            <!--/row-->
+                            {{-- <div class="row">
                                 <div class="col-md-12">
                                     <div id="fasilitases" class="form-group row">
                                         <label class="control-label text-left col-md-2">Fasilitas Perumahan*</label>
@@ -154,20 +139,39 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div> --}}
+                             <!--/row-->
+                             <div class="row">
+                                <div class="col-md-12">
+                                    <div id="kelebihans" class="form-group row">
+                                        <label class="control-label text-left col-md-2">Kelebihan Perumahan*</label>
+                                        <div class="col-md-9">
+                                            <small class="form-control-feedback">Pilih Jenis Kelebihan</small>
+                                            <select  id="kelebihan" class="select2 form-control" name="kelebihan[]" multiple="multiple" style="height: 36px;width: 100%;">
+                                                <optgroup label="Kelebihan Perumahan">
+                                                    @foreach ($kelebihans as $kelebihan)
+                                                        <option value="{{$kelebihan->id}}">{{$kelebihan->kelebihan}} - {{$kelebihan->satuan}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                            </select>
+                                            <small id="pesan-kelebihan" class="pesan form-control-feedback">Masukan salah</small>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                           
                             
-                            </form>
-                            
-                        </div>
+                       </form>     
+                    </div>
                         
                         
                         <div class="card-body">
-                            <h4 class="card-title">Gambar Tipe Perumahan</h4>
+                            <h4 class="card-title">Gambar Perumahan</h4>
                             <div id="image" class="form-group has-danger row">
                                 <div class="col-md-9">
                                 <small id="pesan-image" class="pesan form-control-feedback">Masukan salah</small></div>
                             </div>
-                            <form action="{{route('tipe.store.image')}}" class="dropzone" enctype="multipart/form-data" id="dropzone">
+                            <form action="{{route('perumahan.store.image')}}" class="dropzone" enctype="multipart/form-data" id="dropzone">
                                 @csrf
                             </form>
                             </div>
@@ -176,7 +180,7 @@
                             <div class="card-body">
                                 <div class="text-right">
                                     <button type="button" id="tombol" class="btn btn-info">Submit</button>
-                                    <a href="{{route('tipe.index')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
+                                    <a href="{{route('perumahan.index')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
                                 </div>
                             </div>
                         </div>
@@ -188,15 +192,19 @@
 
     
 </div>
+
+
 @endsection
 <script src="{{asset('/assets/admin/src/assets/libs/jquery/dist/jquery.min.js')}}"></script>
 <script src="{{asset('/assets/admin/src/assets/libs/dropzone/dist/min/dropzone.min.js')}}"></script>
+
 
 @push('script_bawah')
     <!--This page plugins -->
     <script src="{{asset('/assets/admin/src/assets/libs/select2/dist/js/select2.full.min.js')}}"></script>
     <script src="{{asset('/assets/admin/src/assets/libs/select2/dist/js/select2.min.js')}}"></script>
     <script src="{{asset('/assets/admin/dist/js/pages/forms/select2/select2.init.js')}}"></script>
+
 @endpush
 
 <script>
@@ -206,6 +214,7 @@
         $('#'+idDiv).attr('class', 'form-group has-danger row');
         $('#'+idPesan).show();
         $('#'+idPesan).html(pesan);
+        console.log($('#fasilitas').val());
         window.scrollTo(0, document.querySelector(".container-fluid").offsetTop);
     }
 
@@ -225,44 +234,29 @@
 
     function validasi(judul){
         var status = 1;
-        var test;
-        var tipe_name = $('#tipe_name').val();
-        var jenis_property = $('#jenis_property').val();
-        var price = $('#price').val();
+        var perumahan_name = $('#perumahan_name').val();
+        var address = $('#address').val();
         var description = $('#description').val();
-        var land_size = $('#land_size').val();
-        var home_size = $('#home_size').val();
         var fasilitas = $('#fasilitas').val();
+        var tipe = $('#tipe_perumahan').val();
+        var kelebihan = $('#kelebihan').val();
 
 
-        if(tipe_name == null || tipe_name == ""){
-            showValidation('tipe-name','pesan-name','Masukan nama tipe tidak boleh kosong');
+        if(perumahan_name == null || perumahan_name == ""){
+            showValidation('perumahan-name','pesan-name','Masukan nama perumahan tidak boleh kosong');
             status = 0;
-        }else if(tipe_name.length < 3){
-            showValidation('tipe-name','pesan-name','Tolonng masukkan nama tipe perumahan yang benar');
+        }else if(perumahan_name.length < 3){
+            showValidation('perumahan-name','pesan-name','Tolonng masukkan nama tipe perumahan yang benar');
             status = 0;
         }else{
-            correctValidation('tipe-name', 'pesan-name');
+            correctValidation('perumahan-name', 'pesan-name');
         }
 
-        if(jenis_property == null || jenis_property == ''){
-            showValidation('jenis-property','pesan-property','Tolonng pilih jenis property');
+        if(address == null || address == ''){
+            showValidation('addreses','pesan-address','Masukan Alamat tidak boleh kosong');
             status = 0;
         }else{
-            correctValidation('jenis-property', 'pesan-property');
-        }
-
-        if(price == null || price == ''){
-            showValidation('prices','pesan-price','Masukan price tidak boleh kosong');
-            status = 0;
-        }else if(isNaN(price)){
-            showValidation('prices','pesan-price','Masukan format price yang benar');
-            status = 0;
-        }else if(price < 0){
-            showValidation('prices','pesan-price','price tidak boleh kurang dari 0');
-            status = 0;
-        }else{
-            correctValidation('prices', 'pesan-price');
+            correctValidation('addreses', 'pesan-address');
         }
 
         if(description == null || description == ""){
@@ -275,45 +269,11 @@
             correctValidation('descriptions', 'pesan-description');
         }
 
-        if(land_size == null || land_size == ''){
-            showValidation('land-size','pesan-land','Masukan Luas Tanah tidak boleh kosong');
-            status = 0;
-        }else if(isNaN(land_size)){
-            showValidation('land-size','pesan-land','Masukan format Luas Tanah yang benar');
-            status = 0;
-        }else if(land_size < 1){
-            showValidation('land-size','pesan-land','Luas Tanah tibak boleh kurang dari sama dengan 0');
-            status = 0;
-        }else{
-            correctValidation('land-size', 'pesan-land');
-        }
-
-        if(home_size == null || home_size == ''){
-            showValidation('home-size','pesan-home','Masukan Luas Rumah tidak boleh kosong');
-            status = 0;
-        }else if(isNaN(home_size)){
-            showValidation('home-size','pesan-home','Masukan format Luas Rumah yang benar');
-            status = 0;
-        }else if(home_size < 1 && jenis_property == 'rumah'){
-            showValidation('home-size','pesan-home','Luas Rumah tibak boleh kurang dari sama dengan 0');
-            status = 0;
-        }else if(parseInt(land_size) < parseInt(home_size)){
-            showValidation('home-size','pesan-home','Luas Rumah tibak boleh melebihi luas tanah');
-            status = 0;
-            console.log('home size: '+home_size+' land size: '+land_size);
-        }else{
-            correctValidation('home-size', 'pesan-home');
-        }
-
-        if(judul.length == 0){
-            showValidation('image','pesan-image','Tolong masukkan gambar');
-            status = 0;
-        }else{
-            correctValidation('image','pesan-image');
-        }
-
-        arrKosong(fasilitas, 'fasilitases', 'pesan-fasilitas', 'Fasilitas');
-
+        arrKosong(judul,'images','pesan-image', 'Gambar');
+        // arrKosong(fasilitas, 'fasilitases', 'pesan-fasilitas', 'Fasilitas');
+        arrKosong(kelebihan, 'kelebihans', 'pesan-kelebihan', 'Kelebihan');
+        arrKosong(tipe, 'tipe-perumahan', 'pesan-tipe', 'Tipe Perumahan');
+        
 
         return status;
     }
@@ -335,10 +295,11 @@
                 var fileRef;
                 $.ajax({
                     type: 'POST',
-                    url: "{{ route('tipe.delete.image') }}",
+                    url: "{{ route('perumahan.delete.image') }}",
                     data: {_token: $('#signup-token').val(),filename: name,},
                     success: function (data){
                         console.log("File has been successfully removed!!");
+                        console.log(judul);
                     },
                     error: function(e) {
                         console.log(e);
@@ -361,25 +322,16 @@
     $(document).ready(function(){
         $('.pesan').hide();
 
-        $('#jenis_property').change(function(){
-            if($('#jenis_property').val() == 'tanah'){
-                $('#home_size').attr('readonly','');
-                $('#home_size').val(0);
-            }else{
-                $('#home_size').removeAttr('readonly');
-            }
-        })
-
         $('#tombol').click(function(){
             var qty = 0;
             $.ajax({
                 type: 'POST',
-                url: "{{ route('tipe.find') }}",
-                data: {_token: $('#signup-token').val(),tipe_name: $('#tipe_name').val(),},
+                url: "{{ route('perumahan.find') }}",
+                data: {_token: $('#signup-token').val(),perumahan_name: $('#perumahan_name').val(),},
                 success: function (data){
                     qty = data.qty;
                     if(qty >= 1){
-                        showValidation('tipe-name','pesan-name','Tipe Perumahan sudah ada dalam database');
+                        showValidation('peruhaman-name','pesan-perumahan','Tipe Perumahan sudah ada dalam database');
                         var status = 0;
                     }
 
@@ -387,23 +339,21 @@
                         if(status){
                             if(!qty){
                                 jQuery.ajax({
-                                    url: "{{route('tipe.store')}}",
+                                    url: "{{route('perumahan.store')}}",
                                     method: 'post',
                                     data: {
                                         _token: $('#signup-token').val(),
-                                        tipe_name: $('#tipe_name').val(),
-                                        jenis_property: $('#jenis_property').val(),
-                                        price: $('#price').val(),
+                                        perumahan_name: $('#perumahan_name').val(),
+                                        alamat: $('#address').val(),
                                         description: $('#description').val(),
-                                        land_size: $('#land_size').val(),
-                                        home_size: $('#home_size').val(),
-                                        fasilitas: JSON.stringify($('#fasilitas').val()),
+                                        kelebihan: JSON.stringify($('#kelebihan').val()),
+                                        tipe: JSON.stringify($('#tipe_perumahan').val()),
                                         images: JSON.stringify(judul),
                                     },
                                     success: function(result){
                                         alert("Tipe Perumahan baru telah berhasil dimasukkan")
-                                        window.location.href = "/admin/tipe/"+result.success+"/edit";
-                                        // console.log(result.success);
+                                        window.location.href = "/admin/perumahan/"+result.id+"/edit";
+                                        
                                     }
                                 });
                             }else{

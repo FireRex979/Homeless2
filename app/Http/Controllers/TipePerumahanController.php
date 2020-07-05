@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\TipePerumahan as Tipe;
 use App\TipePerumahanImages as Image;
+use App\Fasilitas;
+use App\DetailFasilitas;
 
 class TipePerumahanController extends Controller
 {
@@ -16,7 +18,9 @@ class TipePerumahanController extends Controller
     }
 
     public function create(){
-        return view('admin.tipe-create');
+        $fasilitases = Fasilitas::all();
+
+        return view('admin.tipe-create', compact('fasilitases'));
     }
 
     public function store_image(Request $request){
@@ -40,6 +44,16 @@ class TipePerumahanController extends Controller
         $type->save();
 
         $images = json_decode($request->images);
+        $fasilitases = json_decode($request->fasilitas);
+
+        foreach($fasilitases as $fasilitas){
+            $detailFasilitas = new DetailFasilitas;
+            $detailFasilitas->tipe_rumah_id = $type->id;
+            $detailFasilitas->fasilitas_id = $fasilitas;
+            $detailFasilitas->jumlah = 0;
+            $detailFasilitas->save();
+        }
+
 
         foreach($images as $item){
             $image = new Image;
@@ -77,8 +91,21 @@ class TipePerumahanController extends Controller
     }
 
     public function edit($tipe){
-        $type = Tipe::with('images')->find($tipe);
-        return view('admin.tipe-edit', compact('type'));
+        $type = Tipe::with('images', 'fasilitas')->find($tipe);
+
+        $notInFasilitas = [];
+        $statusFasilitas = 0;
+
+        foreach($type->fasilitas as $item){
+            array_push($notInFasilitas, $item->id);
+            if($item->pivot->jumlah == 0){
+                $statusFasilitas++;
+            }
+        }
+
+        $fasilitases = Fasilitas::all()->whereNotIn('id', $notInFasilitas);
+
+        return view('admin.tipe-edit', compact('type','statusFasilitas', 'fasilitases'));
     }
 
     public function update(Request $request, $tipe){
@@ -121,6 +148,31 @@ class TipePerumahanController extends Controller
         $tipe = $type->tipe_name;
         $type->delete();
         return response()->json(['success'=>'berhasil', 'tipe' => $tipe]);
+    }
+
+    public function editFasilitas(Request $request){
+        $detailFasilitas = DetailFasilitas::find($request->id);
+        $detailFasilitas->jumlah = $request->jumlah;
+        $detailFasilitas->save();
+
+        return redirect(route('tipe.edit', $detailFasilitas->tipe_rumah_id));
+    }
+
+    public function addFasilitas(Request $request){
+        $detailFasilitas = new DetailFasilitas;
+        $detailFasilitas->tipe_rumah_id = $request->tipe_rumah_id;
+        $detailFasilitas->fasilitas_id = $request->fasilitas_id;
+        $detailFasilitas->jumlah = $request->jumlah;
+        $detailFasilitas->save();
+
+        return redirect(route('tipe.edit', $request->tipe_rumah_id)); 
+    }
+
+    public function deleteFasilitas(Request $request){
+        $detailFasilitas = DetailFasilitas::find($request->id);
+        $detailFasilitas->delete();
+
+        return response()->json(['success' => 'Fasilitas Perumahan Berhasil dihapus']);
     }
 
 }

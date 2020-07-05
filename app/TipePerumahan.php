@@ -16,4 +16,8 @@ class TipePerumahan extends Model
     public function images(){
        return  $this->hasMany(TipePerumahanImages::class, 'tipe_rumah_id');
     }
+
+    public function fasilitas(){
+        return $this->belongsToMany('App\Fasilitas', 'detail_fasilitas', 'tipe_rumah_id', 'fasilitas_id')->withPivot('id', 'jumlah');
+    }
 }
