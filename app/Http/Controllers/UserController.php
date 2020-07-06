@@ -75,7 +75,7 @@ class UserController extends Controller
         }else{
             if (Auth::guard('web')->attempt(['email'=>$request->email, 'password'=>$request->password], $request->remember)) {
                 session()->regenerate();
-                return response()->json(['notif'=>'success', 'name'=>Auth::user()->name, 'profile_image'=> Auth::user()->profile_image, 'id'=>Auth::user()->id, 'token'=>csrf_token()], 200);
+                return response()->json(['notif'=>'success', 'name'=>Auth::user()->name, 'profile_image'=> Auth::user()->profile_image, 'id'=>Auth::user()->id, 'email' => Auth::user()->email, 'no_tlp' => Auth::user()->no_tlp, 'token'=>csrf_token()], 200);
             }else{
                 return response()->json(['notif'=>'failed']);
             }
@@ -109,12 +109,21 @@ class UserController extends Controller
         if ($request->ajax()) {
             $data = $request->file('file');
             $extension = $data->getClientOriginalName();
-            $filename = time()."_".$extension;
-            $path = public_path('/images/user/');
-            $upload_success = $data->move($path, $filename);
-            $user = User::find($id);
-            $user->profile_image = $filename;
-            $user->save();
+            $filename = Auth()->user()->id."_".$extension;
+            if (File::exists(public_path('images/user/'.$filename))) {
+                File::delete(public_path('images/user/'.$filename));
+                $path = public_path('/images/user/');
+                $upload_success = $data->move($path, $filename);
+                $user = User::find($id);
+                $user->profile_image = $filename;
+                $user->save();
+            }else{
+                $path = public_path('/images/user/');
+                $upload_success = $data->move($path, $filename);
+                $user = User::find($id);
+                $user->profile_image = $filename;
+                $user->save();
+            }
         }
     }
 

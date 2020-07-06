@@ -150,7 +150,7 @@
                         data: postData,
                         processData: false,
                         success: function(){
-                            alert("success");
+                            alert("Foto Profile sukses diganti");
                         }
                     });
                 }

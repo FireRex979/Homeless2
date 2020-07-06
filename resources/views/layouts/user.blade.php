@@ -38,7 +38,7 @@
                     <div class="header-user-menu" id="profile-header">
                         <div class="header-user-name">
                             <span><img src="/images/user/{{Auth::user()->profile_image}}" alt="" id="profile-image-header"></span>
-                            {{Auth::user()->name}}
+                            <div id="user-name">{{Auth::user()->name}}</div>
                         </div>
                         <ul>
                             <li><a href="/user/{{Auth::user()->id}}"> Profile</a></li>
@@ -230,7 +230,10 @@
                                             <input name="email_login" type="email"   onClick="this.select()" value="" required="">
                                             <label >Password * <span style="color: red; font-style: bold;" id="eror-password-login"></span></label>
                                             <input name="password_login" type="password"   onClick="this.select()" value="" required="">
-                                            <button type="submit" id="btn-login" class="log-submit-btn"><span>Log In</span></button>
+                                            <div style="width: 100%; display: inline-block;">
+                                                <button type="submit" id="btn-login" class="log-submit-btn"><span>Log In</span></button>    
+                                                <img src="images/ajax-loader.gif" style="float: left; margin-top: 15px; margin-left: 20px; display: none;" id="loading-login">
+                                            </div>
                                             <div class="clearfix"></div>
                                             <div class="filter-tags">
                                                 <input id="check-a" type="checkbox" name="remember" id="remember">
@@ -253,7 +256,10 @@
                                             <input type="password" name="newpassword" required="" readonly="">
                                             <label>Masukkan ulang Password Baru *<span style="color: red; font-style: bold" id="eror-newpassword-not-match"></span></label>
                                             <input type="password" name="passwordconfirmed" required="" readonly="">
-                                            <button type="submit" class="log-submit-btn" id="btn-reset-password"><span>Ganti Password</span></button>
+                                            <div style="width: 100%; display: inline-block;">
+                                                <button type="submit" class="log-submit-btn" id="btn-reset-password"><span>Ganti Password</span></button>
+                                                <img src="images/ajax-loader.gif">        
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -267,11 +273,17 @@
                                                 <input type="hidden" name="link" value="http://127.0.0.1:8000/verify/">
                                                 <label id="email-regis-label">Email * <span style="color: red; font-style: bold" id="eror-email-span"></label>
                                                 <input name="email_register" type="email" value="" required="" id="#email">
-                                                <label id="password-regis-label">Password *</label>
+                                                <label id="password-regis-label">Password * <span style="color: red; font-size: bold;" id="eror-password-regis"></span></label>
                                                 <input name="password_register" type="password" value="" required="">
                                                 <label>Konfirmasi Password * <span style="color: red; font-size: bold;" id="eror-password-confirmed"></span></label>
                                                 <input type="password" name="password_confirmed" value="" required="">
-                                                <button type="submit" class="log-submit-btn" id="btn-register" disabled=""><span>Register</span></button>
+                                                <div style="width: 100%; display: inline-block;">
+                                                    <button type="button" class="log-submit-btn" id="btn-register" style="display: none;"><span>Register</span></button>
+                                                    <div style="display: none" id="loading-register">
+                                                        <img src="images/ajax-loader.gif" style="float: left; margin-top: 15px; margin-left: 20px;">
+                                                    </div>
+                                                </div>
+                                                
                                             </div>    
                                         </div>
                                         <div id="link-resend-email">
@@ -304,48 +316,66 @@
                     }
                 });
                 $('#btn-register').on('click', function(){
-                    var name = $('input[name=name]').val();
-                    var email = $('input[name=email_register]').val();
-                    var password = $('input[name=password_register]').val();
-                    var role = $('input[name=role]').val();
-                    var link = $('input[name=link]').val();
-                    $.ajax({
-                        url: '/register-user',
-                        method: 'POST',
-                        data:{
-                            name: name,
-                            email: email,
-                            role: role,
-                            password: password,
-                            link: link
-                        },
-                        success: function(response){
-                            if (response.notif == 'eror-name') {
-                                $('#eror-email-span').empty();
-                                $('#eror-name-span').html( 'nama tidak boleh ada nomor!');
-                                $('input[name=password_register]').val("");
-                                $('input[name=password_confirmed]').val("");
-                            }else if(response.notif == 'eror-email') {
-                                $('#eror-name-span').empty();
-                                $('#eror-email-span').html( 'email telah terdaftar!');
-                                $('input[name=password_register]').val("");
-                                $('input[name=password_confirmed]').val("");
-                            }else if(response.notif == 'eror-name-email'){
-                                $('#eror-name-span').html( 'nama tidak boleh ada nomor!');
-                                $('#eror-email-span').html( 'email telah terdaftar!');
-                                $('input[name=password_confirmed]').val("");
-                            }else if(response.notif == 'success'){
-                                var string = '<p style="text-align: justify;">Email Verifikasi Telah Dikirimkan ke Email Anda. Mohon untuk melakukan verifikasi email sebelum login.</p>';
-                                var link = '<a href="javascript:void(0)" class="resend" style="text-decoration: underline; float: left;"> Belum Mendapatkan Email?</a>'
-                                $('#tab2-line-1').html(string);
-                                $('#link-resend-email').html(link);
-                                $('input[name=user_new]').val(response.id);
+                    if ($('input[name=name]').val()=="" || $('input[name=email_register]').val()=="") {
+                        $('input[name=password_register]').val("");
+                        $('input[name=password_confirmed]').val("");
+                        alert("Isikan Semua Field!");
+                    }else if($('input[name=password_register').length < 8){
+                        $('#eror-password-regis').html('Password minimal 8 digits');
+                        $('input[name=password_register]').val("");
+                        $('input[name=password_confirmed]').val("");
+                    }else{
+                        $('#loading-register').removeAttr('style');
+                        var name = $('input[name=name]').val();
+                        var email = $('input[name=email_register]').val();
+                        var password = $('input[name=password_register]').val();
+                        var role = $('input[name=role]').val();
+                        var link = $('input[name=link]').val();
+                        $.ajax({
+                            url: '/register-user',
+                            method: 'POST',
+                            data:{
+                                name: name,
+                                email: email,
+                                role: role,
+                                password: password,
+                                link: link
+                            },
+                            success: function(response){
+                                if (response.notif == 'eror-name') {
+                                    $('#eror-email-span').empty();
+                                    $('#eror-name-span').html( 'nama tidak boleh ada nomor!');
+                                    $('input[name=password_register]').val("");
+                                    $('input[name=password_confirmed]').val("");
+                                    $('#loading-register').attr('style', 'display: none');
+                                    $('#btn-register').attr('style', 'display: none');
+                                }else if(response.notif == 'eror-email') {
+                                    $('#eror-name-span').empty();
+                                    $('#eror-email-span').html( 'email telah terdaftar!');
+                                    $('input[name=password_register]').val("");
+                                    $('input[name=password_confirmed]').val("");
+                                    $('#loading-register').attr('style', 'display: none');
+                                    $('#btn-register').attr('style', 'display: none');
+                                }else if(response.notif == 'eror-name-email'){
+                                    $('#eror-name-span').html( 'nama tidak boleh ada nomor!');
+                                    $('#eror-email-span').html( 'email telah terdaftar!');
+                                    $('input[name=password_confirmed]').val("");
+                                    $('#loading-register').attr('style', 'display: none');
+                                    $('#btn-register').attr('style', 'display: none');
+                                }else if(response.notif == 'success'){
+                                    var string = '<p style="text-align: justify;">Email Verifikasi Telah Dikirimkan ke Email Anda. Mohon untuk melakukan verifikasi email sebelum login.</p>';
+                                    var link = '<a href="javascript:void(0)" class="resend" style="text-decoration: underline; float: left;"> Belum Mendapatkan Email?</a>'
+                                    $('#tab2-line-1').html(string);
+                                    $('#link-resend-email').html(link);
+                                    $('input[name=user_new]').val(response.id);
+                                    $('#loading-register').attr('style', 'display: none');
+                                }
+                            },
+                            error: function(){
+                                alert('eror');
                             }
-                        },
-                        error: function(){
-                            alert('eror');
-                        }
-                    });
+                        });
+                    }
                 });
                 $('#btn-login').on('click', function(){
                     var email = $('input[name=email_login]').val();
@@ -354,6 +384,7 @@
                     $.ajax({
                         url: '/login/user',
                         method: 'POST',
+                        beforesend: function(){$('#loading-login').css('display', '');},
                         data: {
                             email: email,
                             password: password,
@@ -369,8 +400,11 @@
                                         'X-CSRF-TOKEN': response.token
                                     }
                                 });
+                                $('input[name=email_booking]').val(response.email);
+                                $('input[name=name_booking]').val(response.name);
+                                $('input[name=no_tlp_booking]').val(response.no_tlp);
                                 $('#sign-form').attr('style', 'display: none;');
-                                $('#user-name').text(response.name);
+                                $('#user-name').html(response.name);
                                 $('#profile-user').attr('href', profile_link);
                                 $('#image-user').attr('src', image_link);
                                 $('#profile-header').removeAttr('style');
@@ -433,7 +467,7 @@
                     $('#eror-password-confirmed').html('password tidak sama');
                 }else{
                     $('#eror-password-confirmed').empty();
-                    $('#btn-register').removeAttr('disabled');
+                    $('#btn-register').removeAttr('style');
                 }
             });
             $('#forget-password').on('click', function(){

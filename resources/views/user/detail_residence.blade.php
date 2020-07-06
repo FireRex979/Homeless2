@@ -185,11 +185,11 @@
                             <div class="custom-form">
                                 @if(Auth::check())
                                     <label>Email*</label>
-                                    <input name="email_booking" type="email" onClick="this.select()" value="{{Auth::user()->email}}">
+                                    <input name="email_booking" type="email" onClick="this.select()" value="{{Auth::user()->email}}" placeholder="Masukkan Email">
                                     <label>Nama*</label>
-                                    <input name="name_booking" type="text" onClick="this.select()" placeholder="" value="{{Auth::user()->name}}">
+                                    <input name="name_booking" type="text" onClick="this.select()" placeholder="" value="{{Auth::user()->name}}" placeholder="Masukkan Nama Lengkap">
                                     <label>No Telepon*</label>
-                                    <input name="no_tlp_booking" type="text" onClick="this.select()" placeholder="" value="{{Auth::user()->no_tlp}}">
+                                    <input name="no_tlp_booking" type="text" onClick="this.select()" placeholder="" value="{{Auth::user()->no_tlp}}" placeholder="No Telepon">
                                 @else
                                     <label>Email*</label>
                                     <input name="email_booking" type="email" onClick="this.select()" value="" placeholder="Masukkan Email">
@@ -281,4 +281,11 @@
                     </div>
                 </div>
             </div>
+    <script type="text/javascript">
+        $('#btn-logout').on('click', function(){
+            $('input[name=email_booking]').val('');
+            $('input[name=name_booking]').val('');
+            $('input[name=no_tlp_booking]').val('');
+        })
+    </script>
 @endsection
