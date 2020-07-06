@@ -60,3 +60,4 @@ Route::post('/admin/perumahan/hapus-kelebihan', 'PerumahanController@deleteKeleb
 Route::post('/admin/perumahan/tambah-kelebihan', 'PerumahanController@addKelebihan')->name('perumahan.edit.addKelebihan');
 Route::post('/admin/perumahan/delete-tipe', 'PerumahanController@deleteTipe')->name('perumahan.delete.tipe');
 Route::post('/admin/perumahan/tambah-tipe', 'PerumahanController@addTipe')->name('perumahan.edit.addTipe');
+Route::resource('/admin/kategori-furniture', 'KategoriFurnitureController');

@@ -289,6 +289,8 @@
                                 <span class="hide-menu">Dashboard </span>
                             </a>
                         </li>
+
+                        {{-- Menu Perumahan --}}
                         <li class="nav-small-cap">
                             <i class="mdi mdi-dots-horizontal"></i>
                             <span class="hide-menu">Perumahan</span>
@@ -305,6 +307,20 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="{{route('kelebihan.index')}}" aria-expanded="false"><i class="mdi mdi-book"></i><span
                                     class="hide-menu">Kelebihan</span></a></li>
+                        
+                        {{-- Menu Furniture --}}
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Furniture</span>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{{route('kategori-furniture.index')}}" aria-expanded="false"><i class="mdi mdi-calendar"></i><span
+                                    class="hide-menu">Kategori Furniture</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{{route('perumahan.index')}}" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+                                    class="hide-menu">Furniture</span></a></li>
+                        
+                        {{-- Menu Artikel --}}
                         <li class="nav-small-cap">
                             <i class="mdi mdi-dots-horizontal"></i>
                             <span class="hide-menu">Artikel</span>
