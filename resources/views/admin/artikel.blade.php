@@ -5,7 +5,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('/assets/admin/src/assets/libs/dropzone/dist/min/dropzone.min.css')}}">
 @endpush
 
-@section('title', 'Tipe Rumah')
+@section('title', 'Artikel')
     
 @section('content')
 <input id="signup-token" name="_token" type="hidden" value="{{csrf_token()}}">
@@ -61,11 +61,11 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title">Tipe Rumah</h2>
+                    <h2 class="card-title">Artikel</h2>
                     <h6 class="card-subtitle"></h6>
                     <br>
-                    <a href="{{route('tipe.create')}}">
-                        <button class="btn btn-sm btn-rounded btn-success">+ Tambah Tipe Rumah</button>
+                    <a href="{{route('artikel.create')}}">
+                        <button class="btn btn-sm btn-rounded btn-success">+ Tambah Artikel</button>
                     </a>
                     <br>
                     <br>
@@ -75,33 +75,25 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama Tipe</th>
-                                    <th>Jenis Properti</th>
-                                    <th>Harga</th>
-                                    <th>Deskripsi</th>
-                                    <th>Luas Tanah</th>
-                                    <th>Luas Rumah</th>
+                                    <th>Judul Artikel</th>
+                                    <th>Kategori Artikel</th>
                                     <th>Option</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($types)
-                                    @foreach ($types as $type)
+                                @if ($artikels)
+                                    @foreach ($artikels as $artikel)
                                      <tr>
                                         <td>{{$loop->iteration}}</td>
-                                        <td>{{$type->tipe_name}}</td>
-                                        <td>{{$type->jenis_property}}</td>
-                                        <td>{{$type->price}}</td>
-                                        <td>{{$type->description}}</td>
-                                        <td>{{$type->land_size}}</td>
-                                        <td>{{$type->home_size}}</td>
+                                        <td>{{$artikel->title}}</td>
+                                        <td>{{$artikel->kategori->category_name}}</td>
                                         <td>
                                             <ul class="list-inline m-0">
                                                 <li class="list-inline-item">
-                                                    <a href="{{route('tipe.edit', $type->id)}}"><button class="edit btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button></a>
+                                                    <a href="{{route('artikel.edit', $artikel->id)}}"><button class="edit btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button></a>
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    <button class="hapus btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash" onclick="hapus({{$type->id}},{{$loop->iteration}})"></i></button>
+                                                    <button class="hapus btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash" onclick="hapus({{$artikel->id}},{{$loop->iteration}})"></i></button>
                                                 </li>
                                             </ul>
                                         </td>
@@ -138,16 +130,16 @@
 
 <script>
     function hapus(id_tipe, numRow){
-        var konfirmasi = confirm("Apakah anda yakin menghapus fasilitas?");
+        var konfirmasi = confirm("Apakah anda yakin menghapus artikel?");
         if(konfirmasi == true){
             jQuery.ajax({
-                    url: "/admin/tipe/"+id_tipe,
+                    url: "/admin/artikel/"+id_tipe,
                     method: 'delete',
                     data: {
                         _token: $('#signup-token').val(),
                     },
                     success: function(result){
-                        $("#pesan").text("Kelebihan "+result.tipe+" telah berhasil dihapus");
+                        $("#pesan").text("Artikel telah berhasil dihapus");
                         $("#status-hapus").show();
                         $("#zero_config").find('tbody tr:eq('+String(numRow-1)+')').hide();
                     }

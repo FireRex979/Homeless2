@@ -38,7 +38,7 @@
         <div class="col-12">
             <div class="card ">
                 <div class="card-header bg-info">
-                    <h4 class="card-title text-white">Edit Data Tipe Perumahan</h4>
+                    <h4 class="card-title text-white">Edit Data Tipe Rumah</h4>
                 </div>
                     <div class="form-body">
                         <div class="card-body">
@@ -138,10 +138,10 @@
 
                         <hr>
                         <div class="card-body">
-                            <h4 class="card-title">Tipe Perumahan</h4>
+                            <h4 class="card-title">Tipe Rumah</h4>
                             
                             <button class="btn btn-sm btn-rounded btn-success" data-toggle="modal"
-                                    data-target="#addTipe">+ Tambah Tipe Perumahan</button>
+                                    data-target="#addTipe">+ Tambah Tipe Rumah</button>
                             <br><br>
 
                             <div class="table-responsive">
@@ -150,7 +150,7 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Tipe Perumahan</th>
+                                            <th>Tipe Rumah</th>
                                             <th>Option</th>
                                         </tr>
                                     </thead>
@@ -204,7 +204,7 @@
                                             @foreach ($perum->image as $image)
                                              <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td><img src="{{asset($image->image)}}" alt="gambar tipe perumahan" style="width: 300px; height: 150px"></td>
+                                                <td><img src="{{asset($image->image)}}" alt="gambar Tipe Rumah" style="width: 300px; height: 150px"></td>
                                                 <td>
                                                     <ul class="list-inline m-0">
                                                         <li class="list-inline-item">
@@ -309,7 +309,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Tipe Perumahan</h4>
+                <h4 class="modal-title">Tambah Tipe Rumah</h4>
                 <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close"> <span aria-hidden="true">&times;</span>
                 </button>
@@ -319,9 +319,9 @@
                     @csrf
                     <div class="form-group">
                         <input type="hidden" name="perumahan_id" value="{{$perum->id}}">
-                        <label class="control-label text-left">Tipe Perumahan*</label>
+                        <label class="control-label text-left">Tipe Rumah*</label>
                         <select  id="tipe_val" class="select2 form-control" name="tipe[]" multiple="multiple" style="height: 36px;width: 100%;">
-                            <optgroup label="Tipe Perumahan">
+                            <optgroup label="Tipe Rumah">
                                 @foreach ($types as $type)
                                     <option value="{{$type->id}}">{{$type->tipe_name}}</option>
                                 @endforeach
@@ -418,7 +418,7 @@
             showValidation('perumahan-name','pesan-name','Masukan nama perumahan tidak boleh kosong');
             status = 0;
         }else if(perumahan_name.length < 3){
-            showValidation('perumahan-name','pesan-name','Tolonng masukkan nama tipe perumahan yang benar');
+            showValidation('perumahan-name','pesan-name','Tolonng masukkan nama Tipe Rumah yang benar');
             status = 0;
         }else{
             correctValidation('perumahan-name', 'pesan-name');
@@ -490,7 +490,7 @@
     }
 
     function hapusTipe(idTipe, numRow){
-        var konfirmasi = confirm("Apakah anda yakin menghapus tipe perumahan ini?");
+        var konfirmasi = confirm("Apakah anda yakin menghapus Tipe Rumah ini?");
         if(konfirmasi == true){
             jQuery.ajax({
                 url: "{{route('perumahan.delete.tipe')}}",
@@ -575,14 +575,14 @@
                                         description: $('#description').val(),
                                     },
                                     success: function(result){
-                                        alert("Tipe Perumahan baru telah berhasil diupdate")
+                                        alert("Tipe Rumah baru telah berhasil diupdate")
                                         // window.location.href = "{{route('perumahan.index')}}";
                                         // console.log(result.success);
                                     }
                                 });
                                 console.log('ifnya keajax');
                             }else if(qty >= 1 && data.id != {{$perum->id}}){
-                                showValidation('perumahan-name','pesan-name','Tipe Perumahan sudah ada dalam database');
+                                showValidation('perumahan-name','pesan-name','Tipe Rumah sudah ada dalam database');
                             }
                         }else{
                             console.log('ifnya ke else terakhir. status: '+status);

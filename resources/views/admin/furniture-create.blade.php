@@ -5,7 +5,7 @@
 @endpush
 
 @section('title')
-    <a href="{{route('tipe.index')}}">Tipe Rumah</a><li class="breadcrumb-item"></li>Create
+    <a href="{{route('furniture.index')}}">Furniture</a><li class="breadcrumb-item"></li>Create
 @endsection
 
 @section('content')
@@ -62,7 +62,7 @@
         <div class="col-12">
             <div class="card ">
                 <div class="card-header bg-info">
-                    <h4 class="card-title text-white">Menambah Data Tipe Rumah</h4>
+                    <h4 class="card-title text-white">Menambah Data Furniture</h4>
                 </div>
                     <div class="form-body">
                         <div class="card-body">
@@ -73,29 +73,14 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div id="tipe-name" class="form-group row">
-                                        <label class="control-label text-left col-md-2">Nama Tipe*</label>
+                                        <label class="control-label text-left col-md-2">Nama Furniture*</label>
                                         <div class="col-md-9">
                                             <input type="text" id="tipe_name" class="form-control" placeholder="Masukkan nama tipe" name="tipe_name"><small id="pesan-name" class="pesan form-control-feedback">Masukan salah</small></div>
                                     </div>
                                 </div>
                             </div>
                             <!--/row-->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div id="jenis-property" class="form-group row">
-                                        <label class="control-label text-left col-md-2">Jenis Tipe</label>
-                                        <div class="col-md-9">
-                                            <select  id="jenis_property" class="form-control custom-select" name="jenis_property">
-                                                <option value="">Pilih Jenis Tipe</option>
-                                                <option value="tanah">Tanah</option>
-                                                <option value="rumah">Rumah</option>
-                                            </select>
-                                            <small id="pesan-property" class="pesan form-control-feedback">Masukan salah</small></div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <!--/row-->
                             <div class="row">
                                 <div class="col-md-12">
                                     <div id="prices" class="form-group row">
@@ -116,37 +101,17 @@
                                 </div>
                             </div>
                             <!--/row-->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div id="land-size" class="form-group row">
-                                        <label class="control-label text-left col-md-2">Luas Tanah (m<sup>2</sup>)*</label>
-                                        <div class="col-md-9">
-                                            <input type="text" id="land_size" class="form-control" placeholder="Masukkan luas tanah" name="land_size"><small id="pesan-land" class="pesan form-control-feedback">Masukan salah</small></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/row-->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div id="home-size" class="form-group row">
-                                        <label class="control-label text-left col-md-2">Luas Rumah (m<sup>2</sup>)*</label>
-                                        <div class="col-md-9">
-                                            <input type="text" id="home_size" class="form-control" placeholder="Masukkan luas rumah" name="home_size"><small id="pesan-home" class="pesan form-control-feedback">Masukan salah</small></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/row-->
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <div id="fasilitases" class="form-group row">
-                                        <label class="control-label text-left col-md-2">Fasilitas Perumahan*</label>
+                                        <label class="control-label text-left col-md-2">Kategori Furniture*</label>
                                         <div class="col-md-9">
-                                            <small class="form-control-feedback">Pilih Jenis Fasilitas</small>
-                                            <select  id="fasilitas" class="select2 form-control" name="fasilitas[]" multiple="multiple" style="height: 36px;width: 100%;">
-                                                <optgroup label="Fasilitas Perumahan">
-                                                    @foreach ($fasilitases as $fasilitas)
-                                                        <option value="{{$fasilitas->id}}">{{$fasilitas->fasilitas}}</option>
+                                            <select  id="fasilitas" class="form-control" name="fasilitas">
+                                                <optgroup label="Kategori Furniture">
+                                                    <option value="">Pilih Kategori Furniture</option>
+                                                    @foreach ($kategoriFurnitures as $kategoriFurniture)
+                                                        <option value="{{$kategoriFurniture->id}}">{{$kategoriFurniture->category_name}}</option>
                                                     @endforeach
                                                 </optgroup>
                                             </select>
@@ -162,12 +127,12 @@
                         
                         
                         <div class="card-body">
-                            <h4 class="card-title">Gambar Tipe Rumah</h4>
+                            <h4 class="card-title">Gambar Furniture</h4>
                             <div id="image" class="form-group has-danger row">
                                 <div class="col-md-9">
                                 <small id="pesan-image" class="pesan form-control-feedback">Masukan salah</small></div>
                             </div>
-                            <form action="{{route('tipe.store.image')}}" class="dropzone" enctype="multipart/form-data" id="dropzone">
+                            <form action="{{route('furniture.store.image')}}" class="dropzone" enctype="multipart/form-data" id="dropzone">
                                 @csrf
                             </form>
                             </div>
@@ -176,7 +141,7 @@
                             <div class="card-body">
                                 <div class="text-right">
                                     <button type="button" id="tombol" class="btn btn-info">Submit</button>
-                                    <a href="{{route('tipe.index')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
+                                    <a href="{{route('furniture.index')}}"><button type="button" class="btn btn-dark">Cancel</button></a>
                                 </div>
                             </div>
                         </div>
@@ -214,24 +179,24 @@
         $('#'+idPesan).hide();
     }
 
-    function arrKosong(arr,idDiv,idPesan,pesan){
+    function arrKosong(arr,idDiv,idPesan,pesan,status){
         if(arr.length == 0){
             showValidation(idDiv,idPesan,pesan+' Tidak Boleh Kosong');
             status = 0;
+            
         }else{
             correctValidation(idDiv,idPesan);
         }
+
+        return status;
     }
 
     function validasi(judul){
         var status = 1;
         var test;
         var tipe_name = $('#tipe_name').val();
-        var jenis_property = $('#jenis_property').val();
         var price = $('#price').val();
         var description = $('#description').val();
-        var land_size = $('#land_size').val();
-        var home_size = $('#home_size').val();
         var fasilitas = $('#fasilitas').val();
 
 
@@ -239,17 +204,10 @@
             showValidation('tipe-name','pesan-name','Masukan nama tipe tidak boleh kosong');
             status = 0;
         }else if(tipe_name.length < 3){
-            showValidation('tipe-name','pesan-name','Tolonng masukkan nama Tipe Rumah yang benar');
+            showValidation('tipe-name','pesan-name','Tolonng masukkan nama Furniture yang benar');
             status = 0;
         }else{
             correctValidation('tipe-name', 'pesan-name');
-        }
-
-        if(jenis_property == null || jenis_property == ''){
-            showValidation('jenis-property','pesan-property','Tolonng pilih jenis property');
-            status = 0;
-        }else{
-            correctValidation('jenis-property', 'pesan-property');
         }
 
         if(price == null || price == ''){
@@ -275,35 +233,6 @@
             correctValidation('descriptions', 'pesan-description');
         }
 
-        if(land_size == null || land_size == ''){
-            showValidation('land-size','pesan-land','Masukan Luas Tanah tidak boleh kosong');
-            status = 0;
-        }else if(isNaN(land_size)){
-            showValidation('land-size','pesan-land','Masukan format Luas Tanah yang benar');
-            status = 0;
-        }else if(land_size < 1){
-            showValidation('land-size','pesan-land','Luas Tanah tibak boleh kurang dari sama dengan 0');
-            status = 0;
-        }else{
-            correctValidation('land-size', 'pesan-land');
-        }
-
-        if(home_size == null || home_size == ''){
-            showValidation('home-size','pesan-home','Masukan Luas Rumah tidak boleh kosong');
-            status = 0;
-        }else if(isNaN(home_size)){
-            showValidation('home-size','pesan-home','Masukan format Luas Rumah yang benar');
-            status = 0;
-        }else if(home_size < 1 && jenis_property == 'rumah'){
-            showValidation('home-size','pesan-home','Luas Rumah tibak boleh kurang dari sama dengan 0');
-            status = 0;
-        }else if(parseInt(land_size) < parseInt(home_size)){
-            showValidation('home-size','pesan-home','Luas Rumah tibak boleh melebihi luas tanah');
-            status = 0;
-            console.log('home size: '+home_size+' land size: '+land_size);
-        }else{
-            correctValidation('home-size', 'pesan-home');
-        }
 
         if(judul.length == 0){
             showValidation('image','pesan-image','Tolong masukkan gambar');
@@ -312,7 +241,12 @@
             correctValidation('image','pesan-image');
         }
 
-        arrKosong(fasilitas, 'fasilitases', 'pesan-fasilitas', 'Fasilitas');
+        if(fasilitas == null || fasilitas == ""){
+            showValidation('fasilitases','pesan-fasilitas','Tolong pilihlah kategori furniture');
+            status = 0;
+        }else{
+            correctValidation('fasilitases','pesan-fasilitas');
+        }
 
 
         return status;
@@ -335,7 +269,7 @@
                 var fileRef;
                 $.ajax({
                     type: 'POST',
-                    url: "{{ route('tipe.delete.image') }}",
+                    url: "{{ route('furniture.delete.image') }}",
                     data: {_token: $('#signup-token').val(),filename: name,},
                     success: function (data){
                         console.log("File has been successfully removed!!");
@@ -361,25 +295,16 @@
     $(document).ready(function(){
         $('.pesan').hide();
 
-        $('#jenis_property').change(function(){
-            if($('#jenis_property').val() == 'tanah'){
-                $('#home_size').attr('readonly','');
-                $('#home_size').val(0);
-            }else{
-                $('#home_size').removeAttr('readonly');
-            }
-        })
-
         $('#tombol').click(function(){
             var qty = 0;
             $.ajax({
                 type: 'POST',
-                url: "{{ route('tipe.find') }}",
+                url: "{{ route('furniture.find') }}",
                 data: {_token: $('#signup-token').val(),tipe_name: $('#tipe_name').val(),},
                 success: function (data){
                     qty = data.qty;
                     if(qty >= 1){
-                        showValidation('tipe-name','pesan-name','Tipe Rumah sudah ada dalam database');
+                        showValidation('tipe-name','pesan-name','Furniture sudah ada dalam database');
                         var status = 0;
                     }
 
@@ -387,27 +312,25 @@
                         if(status){
                             if(!qty){
                                 jQuery.ajax({
-                                    url: "{{route('tipe.store')}}",
+                                    url: "{{route('furniture.store')}}",
                                     method: 'post',
                                     data: {
                                         _token: $('#signup-token').val(),
-                                        tipe_name: $('#tipe_name').val(),
-                                        jenis_property: $('#jenis_property').val(),
+                                        furniture_name: $('#tipe_name').val(),
                                         price: $('#price').val(),
                                         description: $('#description').val(),
-                                        land_size: $('#land_size').val(),
-                                        home_size: $('#home_size').val(),
-                                        fasilitas: JSON.stringify($('#fasilitas').val()),
+                                        kategori: $('#fasilitas').val(),
                                         images: JSON.stringify(judul),
                                     },
                                     success: function(result){
-                                        alert("Tipe Rumah baru telah berhasil dimasukkan")
-                                        window.location.href = "/admin/tipe/"+result.success+"/edit";
+                                        alert("Furniture baru telah berhasil dimasukkan")
+                                        // window.location.href = "/admin/tipe/"+result.success+"/edit";
+                                        window.location.href = "{{route('furniture.index')}}"
                                         // console.log(result.success);
                                     }
                                 });
                             }else{
-                                showValidation('tipe-name','pesan-name','Tipe Rumah sudah ada dalam database');
+                                showValidation('tipe-name','pesan-name','Furniture sudah ada dalam database');
                             }
                         }else{
                             

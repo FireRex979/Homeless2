@@ -5,7 +5,7 @@
 @endpush --}}
 
 @section('title')
-    <a href="{{route('tipe.index')}}">Tipe Perumahan</a><li class="breadcrumb-item"></li>Edit
+    <a href="{{route('tipe.index')}}">Tipe Rumah</a><li class="breadcrumb-item"></li>Edit
 @endsection
 
 @section('content')
@@ -38,7 +38,7 @@
         <div class="col-12">
             <div class="card ">
                 <div class="card-header bg-info">
-                    <h4 class="card-title text-white">Edit Data Tipe Perumahan</h4>
+                    <h4 class="card-title text-white">Edit Data Tipe Rumah</h4>
                 </div>
                     <div class="form-body">
                         <div class="card-body">
@@ -131,7 +131,7 @@
 
                         <hr>
                         <div class="card-body">
-                            <h4 class="card-title">Fasilitas Tipe Perumahan</h4>
+                            <h4 class="card-title">Fasilitas Tipe Rumah</h4>
                             
                             <button class="btn btn-sm btn-rounded btn-success" data-toggle="modal"
                                     data-target="#addFasilitases">+ Tambah Fasilitas Perumahan</button>
@@ -178,7 +178,7 @@
                         
                         <hr>
                         <div id="view-gambar" class="card-body">
-                            <h4 class="card-title">Gambar Tipe Perumahan</h4>
+                            <h4 class="card-title">Gambar Tipe Rumah</h4>
                             
                             <button class="btn btn-sm btn-rounded btn-success" data-toggle="modal"
                                     data-target="#addFasilitas">+ Tambah Gambar Fasilitas</button>
@@ -199,7 +199,7 @@
                                             @foreach ($type->images as $image)
                                              <tr>
                                                 <td>{{$loop->iteration}}</td>
-                                                <td><img src="{{asset($image->image)}}" alt="gambar tipe perumahan" style="width: 300px; height: 150px"></td>
+                                                <td><img src="{{asset($image->image)}}" alt="gambar Tipe Rumah" style="width: 300px; height: 150px"></td>
                                                 <td>
                                                     <ul class="list-inline m-0">
                                                         <li class="list-inline-item">
@@ -368,7 +368,7 @@
             showValidation('tipe-name','pesan-name','Masukan nama tipe tidak boleh kosong');
             status = 0;
         }else if(tipe_name.length < 3){
-            showValidation('tipe-name','pesan-name','Tolonng masukkan nama tipe perumahan yang benar');
+            showValidation('tipe-name','pesan-name','Tolonng masukkan nama Tipe Rumah yang benar');
             status = 0;
         }else{
             correctValidation('tipe-name', 'pesan-name');
@@ -545,14 +545,14 @@
                                         home_size: $('#home_size').val(),
                                     },
                                     success: function(result){
-                                        alert("Tipe Perumahan baru telah berhasil diupdate")
+                                        alert("Tipe Rumah baru telah berhasil diupdate")
                                         // window.location.href = "{{route('tipe.index')}}";
                                         // console.log(result.success);
                                     }
                                 });
                                 console.log('ifnya keajax');
                             }else if(qty >= 1 && data.id != {{$type->id}}){
-                                showValidation('tipe-name','pesan-name','Tipe Perumahan sudah ada dalam database');
+                                showValidation('tipe-name','pesan-name','Tipe Rumah sudah ada dalam database');
                             }
                         }else{
                             console.log('ifnya ke else terakhir. status: '+status);
