@@ -105,3 +105,16 @@ Route::post('/admin/perumahan/hapus-kelebihan', 'PerumahanController@deleteKeleb
 Route::post('/admin/perumahan/tambah-kelebihan', 'PerumahanController@addKelebihan')->name('perumahan.edit.addKelebihan');
 Route::post('/admin/perumahan/delete-tipe', 'PerumahanController@deleteTipe')->name('perumahan.delete.tipe');
 Route::post('/admin/perumahan/tambah-tipe', 'PerumahanController@addTipe')->name('perumahan.edit.addTipe');
+Route::resource('/admin/kategori-furniture', 'KategoriFurnitureController');
+Route::resource('/admin/furniture', 'FurnitureController');
+Route::post('/admin/furniture/store-image', 'FurnitureController@storeImage')->name('furniture.store.image');
+Route::post('/admin/furniture/delete-image', 'FurnitureController@deleteImage')->name('furniture.delete.image');
+Route::post('/admin/furniture/find', 'FurnitureController@find')->name('furniture.find');
+Route::post('/admin/furniture/edit/add-image', 'FurnitureController@addGambar')->name('furniture.edit.addGambar');
+Route::post('/admin/furniture/edit/delete-gambar', 'FurnitureController@deleteGambar')->name('furniture.edit.deleteGambar');
+Route::resource('/admin/paket-furniture', 'PaketFurnitureController');
+Route::post('/admin/paket-furniture/total-harga', 'PaketFurnitureController@totalHarga')->name('paket-furniture.totalHarga');
+Route::post('/admin/paket-furniture/edit/add-furniture', 'PaketFurnitureController@addFurniture')->name('paket-furniture.edit.addFurniture');
+Route::post('/admin/paket-furniture/edit/delete-furniture', 'PaketFurnitureController@deleteFurniture')->name('paket-furniture.edit.deleteFurniture');
+Route::post('/admin/paket-furniture/unique', 'PaketFurnitureController@find')->name('paket-furniture.find');
+Route::resource('/admin/artikel', 'ArtikelController');
