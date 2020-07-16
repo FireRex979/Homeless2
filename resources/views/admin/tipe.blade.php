@@ -125,7 +125,40 @@
 
 
 
-<script src="{{asset('/assets/admin/src/assets/libs/jquery/dist/jquery.min.js')}}"></script>
+@section('konten_bawah')
+
+    <script>
+        function hapus(id_tipe, numRow){
+            var konfirmasi = confirm("Apakah anda yakin menghapus fasilitas?");
+            if(konfirmasi == true){
+                jQuery.ajax({
+                        url: "/admin/tipe/"+id_tipe,
+                        method: 'delete',
+                        data: {
+                            _token: $('#signup-token').val(),
+                        },
+                        success: function(result){
+                            $("#pesan").text("Kelebihan "+result.tipe+" telah berhasil dihapus");
+                            $("#status-hapus").show();
+                            $("#zero_config").find('tbody tr:eq('+String(numRow-1)+')').hide();
+                        }
+                });
+            }
+        }
+        
+    
+        $(document).ready(function(e){
+            $("#close1").click(function(e){
+                $('#status').hide();
+            });
+            $("#close2").click(function(e){
+                $('#status-hapus').hide();
+            });
+    
+        });
+    </script>
+@endsection
+
 
 @push('script_bawah')
 <!--This page plugins -->
@@ -136,33 +169,3 @@
 <script src="{{asset('/assets/admin/src/assets/libs/dropzone/dist/min/dropzone.min.js')}}"></script>
 @endpush
 
-<script>
-    function hapus(id_tipe, numRow){
-        var konfirmasi = confirm("Apakah anda yakin menghapus fasilitas?");
-        if(konfirmasi == true){
-            jQuery.ajax({
-                    url: "/admin/tipe/"+id_tipe,
-                    method: 'delete',
-                    data: {
-                        _token: $('#signup-token').val(),
-                    },
-                    success: function(result){
-                        $("#pesan").text("Kelebihan "+result.tipe+" telah berhasil dihapus");
-                        $("#status-hapus").show();
-                        $("#zero_config").find('tbody tr:eq('+String(numRow-1)+')').hide();
-                    }
-            });
-        }
-    }
-    
-
-    $(document).ready(function(e){
-        $("#close1").click(function(e){
-            $('#status').hide();
-        });
-        $("#close2").click(function(e){
-            $('#status-hapus').hide();
-        });
-
-    });
-</script>

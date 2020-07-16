@@ -2,8 +2,11 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
+use Auth; 
 
 class Handler extends ExceptionHandler
 {
@@ -52,4 +55,5 @@ class Handler extends ExceptionHandler
     {
         return parent::render($request, $exception);
     }
+
 }

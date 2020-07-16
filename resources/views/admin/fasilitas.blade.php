@@ -182,7 +182,54 @@
 @endsection
 
 
-<script src="{{asset('/assets/admin/src/assets/libs/jquery/dist/jquery.min.js')}}"></script>
+{{-- <script src="{{asset('/assets/admin/src/assets/libs/jquery/dist/jquery.min.js')}}"></script> --}}
+
+@section('konten_bawah')
+    <script>
+        function hapus(id_fasilitas, numRow){
+            var konfirmasi = confirm("Apakah anda yakin menghapus fasilitas?");
+            if(konfirmasi == true){
+                jQuery.ajax({
+                        url: "/admin/fasilitas/"+id_fasilitas,
+                        method: 'delete',
+                        data: {
+                            _token: $('#signup-token').val(),
+                        },
+                        success: function(result){
+                            $("#pesan").text("Fasilitas "+result.fasilitas+" telah berhasil dihapus");
+                            $("#status-hapus").show();
+                            $("#zero_config").find('tbody tr:eq('+String(numRow-1)+')').hide();
+                        }
+                });
+            }
+        }
+
+        function showEdit(id_fasilitas){
+            jQuery.ajax({
+                    url: "/admin/fasilitas/"+id_fasilitas+"/edit",
+                    method: 'get',
+                    success: function(result){
+                        // $('.ganti').html(result.hasil);
+                        // $('#editFasilitas').modal('show');
+                        $("#namaFasilitas").val(result.fal['fasilitas']);
+                        $("#formEdit").attr("action", "/admin/fasilitas/"+id_fasilitas);
+                    }
+            });
+        }
+
+        
+
+        $(document).ready(function(e){
+            $("#close1").click(function(e){
+                $('#status').hide();
+            });
+            $("#close2").click(function(e){
+                $('#status-hapus').hide();
+            });
+
+        });
+    </script>
+@endsection
 
 @push('script_bawah')
 <!--This page plugins -->
@@ -192,47 +239,3 @@
 <script src="{{asset('/assets/admin/dist/js/pages/datatable/datatable-basic.init.js')}}"></script>
 @endpush
 
-<script>
-    function hapus(id_fasilitas, numRow){
-        var konfirmasi = confirm("Apakah anda yakin menghapus fasilitas?");
-        if(konfirmasi == true){
-            jQuery.ajax({
-                    url: "/admin/fasilitas/"+id_fasilitas,
-                    method: 'delete',
-                    data: {
-                        _token: $('#signup-token').val(),
-                    },
-                    success: function(result){
-                        $("#pesan").text("Fasilitas "+result.fasilitas+" telah berhasil dihapus");
-                        $("#status-hapus").show();
-                        $("#zero_config").find('tbody tr:eq('+String(numRow-1)+')').hide();
-                    }
-            });
-        }
-    }
-
-    function showEdit(id_fasilitas){
-        jQuery.ajax({
-                url: "/admin/fasilitas/"+id_fasilitas+"/edit",
-                method: 'get',
-                success: function(result){
-                    // $('.ganti').html(result.hasil);
-                    // $('#editFasilitas').modal('show');
-                    $("#namaFasilitas").val(result.fal['fasilitas']);
-                    $("#formEdit").attr("action", "/admin/fasilitas/"+id_fasilitas);
-                }
-        });
-    }
-
-    
-
-    $(document).ready(function(e){
-        $("#close1").click(function(e){
-            $('#status').hide();
-        });
-        $("#close2").click(function(e){
-            $('#status-hapus').hide();
-        });
-
-    });
-</script>
