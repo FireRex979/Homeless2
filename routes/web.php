@@ -17,6 +17,10 @@ Route::get('/kpr', function () {
     return view('user.simulasi_kpr');
 });
 
+Route::get('/furniture-detail', function () {
+    return view('user.furniture_detail');
+});
+
 Route::get('/home', function () {
     return view('user.home');
 });

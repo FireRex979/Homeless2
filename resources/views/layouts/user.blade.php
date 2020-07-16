@@ -320,7 +320,7 @@
                         $('input[name=password_register]').val("");
                         $('input[name=password_confirmed]').val("");
                         alert("Isikan Semua Field!");
-                    }else if($('input[name=password_register').length < 8){
+                    }else if($('input[name=password_register').val().length < 8){
                         $('#eror-password-regis').html('Password minimal 8 digits');
                         $('input[name=password_register]').val("");
                         $('input[name=password_confirmed]').val("");
