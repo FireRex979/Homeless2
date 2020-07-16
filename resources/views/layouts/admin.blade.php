@@ -289,13 +289,15 @@
                                 <span class="hide-menu">Dashboard </span>
                             </a>
                         </li>
+
+                        {{-- Menu Perumahan --}}
                         <li class="nav-small-cap">
                             <i class="mdi mdi-dots-horizontal"></i>
                             <span class="hide-menu">Perumahan</span>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="{{route('tipe.index')}}" aria-expanded="false"><i class="mdi mdi-calendar"></i><span
-                                    class="hide-menu">Tipe Perumahan</span></a></li>
+                                    class="hide-menu">Tipe Rumah</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="{{route('perumahan.index')}}" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
                                     class="hide-menu">Perumahan</span></a></li>
@@ -305,6 +307,23 @@
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
                                 href="{{route('kelebihan.index')}}" aria-expanded="false"><i class="mdi mdi-book"></i><span
                                     class="hide-menu">Kelebihan</span></a></li>
+                        
+                        {{-- Menu Furniture --}}
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Furniture</span>
+                        </li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{{route('kategori-furniture.index')}}" aria-expanded="false"><i class="mdi mdi-calendar"></i><span
+                                    class="hide-menu">Kategori Furniture</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{{route('furniture.index')}}" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+                                    class="hide-menu">Furniture</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                            href="{{route('paket-furniture.index')}}" aria-expanded="false"><i class="mdi mdi-book"></i><span
+                                class="hide-menu">Paket Furniture</span></a></li>
+                        
+                        {{-- Menu Artikel --}}
                         <li class="nav-small-cap">
                             <i class="mdi mdi-dots-horizontal"></i>
                             <span class="hide-menu">Artikel</span>
@@ -313,7 +332,7 @@
                                 href="{{route('kategori-artikel.index')}}" aria-expanded="false"><i class="mdi mdi-calendar"></i><span
                                     class="hide-menu">Kategori Artikel</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="app-chats.html" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
+                                href="{{route('artikel.index')}}" aria-expanded="false"><i class="mdi mdi-comment-processing-outline"></i><span
                                     class="hide-menu">Artikel</span></a></li>
                     </ul>
                 </nav>
