@@ -84,6 +84,8 @@ Route::get('/test', function(){
 Auth::routes();
 Route::get('/login/admin', 'Auth\LoginController@showAdminLoginForm');
 Route::post('/login/admin', 'Auth\LoginController@adminLogin');
+Route::get('/register/admin', 'Auth\RegisterController@showRegisterAdmin')->middleware('superAdmin')->name('register.admin');
+Route::post('/register/admin', 'Auth\RegisterController@storeAdmin')->middleware('superAdmin')->name('register.admin.store');
 
 Route::get('admin', function(){
     return redirect('/admin/home');

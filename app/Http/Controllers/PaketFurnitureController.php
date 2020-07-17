@@ -36,6 +36,7 @@ class PaketFurnitureController extends Controller
         $paket =  new PaketFurniture;
         $paket->paket_name = $request->paket_name;
         $paket->price_total = $request->price;
+        $paket->description = $request->description;
         $paket->save();
 
         foreach($request->furniture as $item){
@@ -85,6 +86,7 @@ class PaketFurnitureController extends Controller
 
         $paket->paket_name = $request->paket_name;
         $paket->price_total = $request->price_total;
+        $paket->description = $request->description;
         $paket->save();
 
         return response()->json(['success' => 'Paket Furniture berhasil diupdate']);

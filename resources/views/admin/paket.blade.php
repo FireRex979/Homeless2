@@ -76,6 +76,7 @@
                                     <th>No.</th>
                                     <th>Nama Paket Furniture</th>
                                     <th>Harga</th>
+                                    <th>Deskripsi</th>
                                     <th>Furnitures</th>
                                     <th>Option</th>
                                 </tr>
@@ -87,6 +88,7 @@
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$paket->paket_name}}</td>
                                         <td>{{$paket->price_total}}</td>
+                                        <td>{{$paket->description}}</td>
                                         <td>@if ($paket->furniture)
                                             @foreach ($paket->furniture as $item)
                                                 {{$item->furniture_name}} <br>
@@ -139,6 +141,12 @@
                         <input id="paket_name" type="text" class="form-control"
                             placeholder="Masukkan nama paket" name="paket_name">
                         <small id="pesan-paket" class="pesan form-control-feedback">Masukan salah</small>
+                    </div>
+
+                    <div id="descriptions" class="form-group">
+                        <label>Deskripsi</label>
+                        <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
+                        <small id="pesan-description" class="pesan form-control-feedback">Masukan salah</small>
                     </div>
                     
                     <div id="furnitures" class="form-group">
@@ -298,6 +306,7 @@
         var status = 1;
         var tipe_name = $('#paket_name').val();
         var price = $('#price').val();
+        var description = $('#description').val();
         var furniture = $('#furniture').val();
 
 
@@ -309,6 +318,16 @@
             status = 0;
         }else{
             correctValidation('paket-name', 'pesan-paket');
+        }
+
+        if(description == null || description == ""){
+            showValidation('descriptions','pesan-description','Masukan deskripsi tidak boleh kosong');
+            status = 0;
+        }else if(description.length < 3){
+            showValidation('descriptions','pesan-description','Tolonng masukkan deskripsi yang benar');
+            status = 0;
+        }else{
+            correctValidation('descriptions', 'pesan-description');
         }
 
         if(price == null || price == ''){

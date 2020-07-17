@@ -62,6 +62,15 @@
                                         </div>
                                     </div>
                                 </div> 
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div id="descriptions" class="form-group row">
+                                            <label class="control-label text-left col-md-2">Deskripsi Paket Furniture*</label>
+                                            <div class="col-md-9">
+                                                <textarea id="description" class="form-control" placeholder="Masukkan deskripsi" name="description">{{$paket->description}}</textarea><small id="pesan-description" class="pesan form-control-feedback">Masukan salah</small></div>
+                                        </div>
+                                    </div>
+                                </div> 
                             </form>
                             <div class="form-actions">
                                 <div class="card-body">
@@ -194,6 +203,7 @@
         var status = 1;
         var tipe_name = $('#paket_name').val();
         var price = $('#price_total').val();
+        var description = $('#description').val();
 
         if(tipe_name == null || tipe_name == ""){
             showValidation('paket-name','pesan-paket','Masukan nama paket tidak boleh kosong');
@@ -203,6 +213,16 @@
             status = 0;
         }else{
             correctValidation('paket-name', 'pesan-paket');
+        }
+
+        if(description == null || description == ""){
+            showValidation('descriptions','pesan-description','Masukan deskripsi tidak boleh kosong');
+            status = 0;
+        }else if(description.length < 3){
+            showValidation('descriptions','pesan-description','Tolonng masukkan deskripsi yang benar');
+            status = 0;
+        }else{
+            correctValidation('descriptions', 'pesan-description');
         }
 
         if(price == null || price == ''){
@@ -277,6 +297,7 @@
                                         _token: $('#signup-token').val(),
                                         paket_name: $('#paket_name').val(),
                                         price_total: $('#price_total').val(),
+                                        description: $('#description').val(),
                                     },
                                     success: function(result){
                                         alert("Paket Furniture telah berhasil diupdate")
